@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/home/layout::shared(~{::.login-container})}">
+
+<link>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+	
+</head>
+
+
+<body>
+	<div class="login-wrapper">
+	    <section class="login-container">
+	        <h2>Đăng nhập</h2>
+			<i th:text="${msg}"></i>
+	        <form action="/cookie/login/check" method="post">
+	            <input type="text" th:value="${@cookieService.getValue('un')}" name="username" placeholder="Tên đăng nhập" required>
+	            <input type="password" th:value="${@cookieService.getValue('pw')}" name="password" placeholder="Mật khẩu" required>
+	            <label>
+	                <input type="checkbox" name="remember" value="true" th:checked="${@cookieService.get('un') !=null}"> Ghi nhớ đăng nhập
+	            </label>
+	            <button >Đăng nhập</button>
+	            <button type="button" class="register-btn">Đăng ký</button>
+	        </form>
+	    </section>
+	</div>
+
+	
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="shared(x)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Store Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        display: flex;
+        height: 100vh;
+        position: relative;
+    }
+
+    .sidebar {
+        width: 250px;
+        background: #1E293B;
+        color: white;
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+
+    .header-sidebar {
+
+        padding: 15px;
+        margin-bottom: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .header-sidebar .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+    }
+
+    .header-sidebar .toggle-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+
+    }
+
+    .sidebar ul {
+
+        list-style: none;
+        padding: 20px 10px;
+        margin: 0;
+    }
+
+    .sidebar ul li {
+        padding: 5px;
+        cursor: pointer;
+        margin-top: 2px;
+    }
+
+    .sidebar ul li.active,
+    .sidebar ul li:hover {
+
+        background: #334155;
+        border: 5px;
+    }
+     .sidebar ul li a {
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+
+     }
+    .sidebar ul li a i {
+        font-size: 18px;
+        margin-right: 10px;
+        
+    }
+    .main-content {
+        width: 100%;
+        background-color: #F7F7F7;
+        min-height: calc(100vh - 60px);
+
+    }
+
+    .topbar {
+        background-color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: black;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+
+    }
+
+    .search-bar {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 50%;
+
+    }
+
+    .user {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+
+    }
+
+    .avt {
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: aquamarine;
+        text-align: center;
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+</style>
+
+<body>
+    <div class="container">
+       <div th:replace="~{/admin/menu}"></div>
+        <div class="main-content">
+            <header class="topbar">
+                <input class="search-bar" type="text" placeholder="Tìm kiếm">
+                <div class="user">
+                    <div class="avt"></div>
+                    <div class="user-info">Admin devnhaque</div>
+                </div>
+
+            </header>
+            <section class="dashboard">
+				<div th:replace="${x}"></div>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>
