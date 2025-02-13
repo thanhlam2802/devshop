@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" th:fragment="shared(x)">
+<html lang="en" th:fragment="shared(x,y)">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clothing Store Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+	<link rel="stylesheet" href="/css/order.css">
 </head>
 <style>
     * {
@@ -104,13 +104,7 @@
 
     }
 
-    .search-bar {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 50%;
 
-    }
 
     .user {
         display: flex;
@@ -143,7 +137,8 @@
        <div th:replace="~{/admin/menu}"></div>
         <div class="main-content">
             <header class="topbar">
-                <input class="search-bar" type="text" placeholder="Tìm kiếm">
+				<h1 class="title" th:text="${y}"></h1>
+
                 <div class="user">
                     <div class="avt"></div>
                     <div class="user-info">Admin devnhaque</div>

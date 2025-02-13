@@ -1,16 +1,87 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{/admin/layout::shared(~{::.content})}">
+<html lang="en" th:replace="~{/admin/layout::shared(~{::.admin-content},'Quan ly don hang')}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
+    <title>Quan ly don hang</title>
 </head>
-
+ 
 <body>
-    <div class="content">
-		<h1>order</h1>
-	</div>
-</body>
+	<div class="admin-content">
+	       <h5 class="admin-title">Danh sách các đơn đặt hàng</h5>
+	       <div class="admin-row">
+	           <div class="admin-col">
+	               <label for="show">Hiển thị:</label>
+	               <select class="admin-select" id="show" name="show">
+	                   <option value="10">10</option>
+	                   <option value="20">20</option>
+	                   <option value="30">30</option>
+	                   <option value="50">50</option>
+	               </select>
+	           </div>
+	           <div class="admin-col">
+	               <label for="filter">Lọc theo:</label>
+	               <select class="admin-select" id="filter" name="filter">
+	                   <option value="1">Tất cả</option>
+	                   <option value="2">Cũ nhất</option>
+	               </select>
+	           </div>
+	           <div class="admin-col">
+	               <label for="search">Tìm kiếm:</label>
+	               <input type="text" class="admin-input" id="search" placeholder="Tìm kiếm đơn hàng...">
+	           </div>
+	       </div>
+	       <table>
+	           <thead>
+	               <tr>
+	                   <th>STT</th>
+	                   <th>Mã đơn</th>
+	                   <th>Họ và tên</th>
+	                   <th>Tổng đơn hàng</th>
+	                   <th>Hình thức mua</th>
+	                   <th>Ngày đặt</th>
+	                   <th>Địa chỉ</th>
+	                   <th>Tình trạng đơn hàng</th>
+	               </tr>
+	           </thead>
+	           <tbody>
+	               <tr>
+	                   <td>1</td>
+	                   <td>ĐH001</td>
+	                   <td>Nguyễn Văn A</td>
+	                   <td>1.000.000 VNĐ</td>
+	                   <td>Trực tuyến</td>
+	                   <td>2022-01-01</td>
+	                   <td>123 Nguyễn Văn Cừ, Q.1, TP.HCM</td>
+	                   <td>
+	                       <select class="order-status">
+	                           <option value="Đã giao hàng">Đã giao hàng</option>
+	                           <option value="Đang giao hàng">Đang giao hàng</option>
+	                           <option value="Đã hủy">Đã hủy</option>
+	                       </select>
+	                   </td>
+	                   
+	               </tr>
+	               <tr>
+	                   <td>2</td>
+	                   <td>ĐH002</td>
+	                   <td>Nguyễn Thị B</td>
+	                   <td>500.000 VNĐ</td>
+	                   <td>Trực tuyến</td>
+	                   <td>2022-01-05</td>
+	                   <td>456 Lê Thánh Tôn, Q.1, TP.HCM</td>
+	                   <td>
+	                       <select class="order-status">
+	                           <option value="Đã giao hàng">Đã giao hàng</option>
+	                           <option value="Đang giao hàng">Đang giao hàng</option>
+	                           <option value="Đã hủy">Đã hủy</option>
+	                       </select>
+	                   </td>
+	                   
+	               </tr>
+	           </tbody>
+	       </table>
+	   </div></body>
 
 </html>
