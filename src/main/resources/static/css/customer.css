@@ -1,0 +1,84 @@
+
+
+
+.content {
+    width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            background-color: #ffffff;
+}
+
+.admin-title {
+    padding: 10px;
+            font-size: 14px;
+            font-weight: 100;
+            color: #666666;
+}
+
+.row {
+    display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            margin-bottom: 20px;
+}
+
+.admin-col {
+    flex: 1;
+            display: flex;
+            flex-direction: column;
+}
+
+.admin-select, .admin-input {
+    width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+}
+
+.table-container {
+    max-height: 400px; 
+    overflow-y: auto; 
+    border: 1px solid #ccc; 
+}
+
+/* Giữ tiêu đề bảng cố định */
+table thead {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 2;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+table th, table td {
+    padding: 12px;
+    border: none; 
+    text-align: left;
+}
+
+table th {
+    background: none; 
+    font-weight: bold;
+}
+
+table tbody tr {
+    transition: background 0.3s ease;
+}
+
+table td:nth-child(3) { 
+    color: #1E90FF; /* Màu xanh */
+    font-weight: bold;
+}
+
+
+table tbody tr:hover {
+    background: #f1f1f1;
+}

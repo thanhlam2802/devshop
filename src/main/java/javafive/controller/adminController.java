@@ -1,14 +1,20 @@
 package javafive.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import javafive.entity.User;
+import javafive.service.UserServie;
 
 @Controller
 public class adminController {
-
+	@Autowired
+	UserServie UserService;
 	@RequestMapping("/devshop/admin/index")
     public String home(Model model, HttpServletRequest request) {
         
@@ -16,7 +22,8 @@ public class adminController {
     }
 	@RequestMapping("/devshop/admin/customer")
     public String customer(Model model, HttpServletRequest request) {
-        
+		List<User> list = UserService.findAll();
+        model.addAttribute("users",list);
         return "/admin/customer";
     }
 	@RequestMapping("/devshop/admin/product")

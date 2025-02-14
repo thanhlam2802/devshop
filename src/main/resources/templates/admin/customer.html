@@ -1,16 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{/admin/layout::shared(~{::.content})}">
+<html lang="en" th:replace="~{/admin/layout::shared(~{::.content},'Quan ly tai khoan',~{::link})}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
+    <title>Quan ly khach hang</title>
+	<link rel="stylesheet" href="/css/customer.css">
 </head>
-
+ 
+</head>
 <body>
     <div class="content">
-		<h1>customer</h1>
+		<h5 class="admin-title">Danh sách các khach hang</h5>
+        <div class="row">
+            <div class="admin-col">
+                <label for="show">Hiển thị:</label>
+                <select class="admin-select" id="show" name="show">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            <div class="admin-col">
+                <label for="filter">Lọc theo:</label>
+                <select class="admin-select" id="filter" name="filter">
+                    <option value="1">Tất cả</option>
+                    <option value="2">Cũ nhất</option>
+                </select>
+            </div>
+            <div class="admin-col">
+                <label for="search">Tìm kiếm:</label>
+                <input type="text" class="admin-input" id="search" placeholder="Tìm kiếm khach hang...">
+            </div>
+
+        </div>
+		<div class="table-container">
+		    <table>
+		        <thead>
+		            <tr>
+		                <th>STT</th>
+		                <th>avt</th>
+		                <th>Họ và tên</th>
+		                <th>sdt</th>
+		                <th>trang thai</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="u, s:${users}">
+		                <td th:text="${s.count}"></td>
+		                <td><img th:src="${u.photo}" alt="Avatar" width="50"></td>
+		                <td th:text="${u.fullname}"></td>
+		                <td th:text="${u.mobile}"></td>
+		                <td th:text="${u.enabled} ? 'Đang hoạt động' : 'Ngừng hoạt động'"></td>
+		            </tr>
+		        </tbody>
+		    </table>
+		</div>
+		
 	</div>
 </body>
-
 </html>
