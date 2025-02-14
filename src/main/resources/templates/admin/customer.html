@@ -49,7 +49,8 @@
 		        <tbody>
 		            <tr th:each="u, s:${users}">
 		                <td th:text="${s.count}"></td>
-		                <td><img th:src="${u.photo}" alt="Avatar" width="50"></td>
+		                <td><img th:src="
+							@{'/photo/' +${u.photo}}" alt="Avatar" width="50"></td>
 		                <td th:text="${u.fullname}"></td>
 		                <td th:text="${u.mobile}"></td>
 		                <td th:text="${u.enabled} ? 'Đang hoạt động' : 'Ngừng hoạt động'"></td>
