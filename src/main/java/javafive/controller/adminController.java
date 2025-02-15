@@ -24,10 +24,11 @@ public class adminController {
         return "/admin/index";
     }
 	@RequestMapping({"/devshop/admin/customer","/devshop/admin/customer/{size}"})
-    public String customer(Model model, HttpServletRequest request, @RequestParam Optional<Integer> size) {
+    public String customer(Model model, HttpServletRequest request,
+    		@RequestParam Optional<Integer> size) {
 		int limit = size.orElse(0);
 	
-		List<User> list = (limit > 0) ? (List<User>) UserService.findUsersWithLimit(limit).getContent(): UserService.findAll();
+		List<User> list = (limit > 0) ? (List<User>) UserService.findUsersWithLimit(limit).getContent(): UserService.findAllCustomer();
         model.addAttribute("users",list);
         return "/admin/customer";
     }

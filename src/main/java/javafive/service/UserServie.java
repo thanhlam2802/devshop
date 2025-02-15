@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserServie {
-
+	List<User> findAllCustomer();
 	List<User> findAll(); 
     Optional<User> findById(String id); 
     void deleteById(Long id); 

@@ -51,7 +51,14 @@ public class UserImpl implements UserServie{
 	@Override
 	public Page<User> findUsersWithLimit(int size) {
 		Pageable pageable = PageRequest.of(0, size);
-		return dao.findAll(pageable);
+		return dao.findCustomersWithPagination(pageable);
+	}
+
+	@Override
+	public List<User> findAllCustomer() {
+		
+		
+		return dao.findAllCustomer();
 	}
 
 	
