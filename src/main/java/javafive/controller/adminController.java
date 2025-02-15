@@ -1,11 +1,14 @@
 package javafive.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import javafive.entity.User;
@@ -20,9 +23,11 @@ public class adminController {
         
         return "/admin/index";
     }
-	@RequestMapping("/devshop/admin/customer")
-    public String customer(Model model, HttpServletRequest request) {
-		List<User> list = UserService.findAll();
+	@RequestMapping({"/devshop/admin/customer","/devshop/admin/customer/{size}"})
+    public String customer(Model model, HttpServletRequest request, @RequestParam Optional<Integer> size) {
+		int limit = size.orElse(0);
+	
+		List<User> list = (limit > 0) ? (List<User>) UserService.findUsersWithLimit(limit).getContent(): UserService.findAll();
         model.addAttribute("users",list);
         return "/admin/customer";
     }

@@ -15,12 +15,14 @@
         <div class="row">
             <div class="admin-col">
                 <label for="show">Hiển thị:</label>
-                <select class="admin-select" id="show" name="show">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="50">50</option>
-                </select>
+				<form action="/devshop/admin/customer" method="get">
+				    <select class="admin-select" id="show" name="size" onchange="this.form.submit()">
+				        <option value="0">all</option>
+				        <option value="5">5</option>
+				        <option value="10">10</option>
+				        <option value="50">50</option>
+				    </select>
+				</form>
             </div>
             <div class="admin-col">
                 <label for="filter">Lọc theo:</label>
