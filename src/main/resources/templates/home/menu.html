@@ -1,49 +1,53 @@
-<div class="row align-items-center" >
-	           <div class="col-auto logo">
-				<h1><a href="/devshop/home/index" class="text-dark text-decoration-none">DevShop</a></h1>
-	           </div>
-	   
-	           <div class="col">
-	               <!-- Nút toggle -->
-	               <button class="navbar-toggler d-md-none" onclick="toggleMenu()">
-	                   <i class="bi bi-list"></i>
-	               </button>
-	   
-	               <!-- Thanh điều hướng -->
-	               <nav>
-	                   <ul class="nav justify-content-center">
-	                       <li class="nav-item">
-	                           <a class="nav-link" href="/devshop/home/sanphammoi">Sản phẩm mới</a>
-	                       </li>
-	                       <li class="nav-item">
-	                           <a class="nav-link" href="/devshop/home/banchay">bán chạy </a>
-	                       </li>
-	                       <li class="nav-item">
-	                           <a class="nav-link" href="/devshop/home/nam">nam</a>
-	                       </li>
-	                       <li class="nav-item">
-	                           <a class="nav-link" href="/devshop/home/nu">nữ </a>
-	                       </li>
-	                       <li class="nav-item">
-	                           <a class="nav-link" href="/devshop/home/tin">Tin hot</a>
-	                       </li>
-	                       <li class="nav-item">
-	                           <a class="nav-link" href="/devshop/home/uudai">Ưu đãi</a>
-	                       </li>
-	                   </ul>
-	               </nav>
-	           </div>
-	           <div class="col-auto">
-	               <div class="d-flex gap-3">
-	                   <a href="#" class="text-dark" title="Search">
-	                       <i class="bi bi-search"></i>
-	                   </a>
-	                   <a href="#" class="text-dark" title="Cart">
-	                       <i class="bi bi-cart"></i>
-	                   </a>
-	                   <a href="/devshop/home/login" class="text-dark" title="Profile">
-	                       <i class="bi bi-person"></i>
-	                   </a>
-	               </div>
-	           </div>
-	       </div>
+<div class="row align-items-center">
+	<div class="col-auto logo">
+		<h1><a href="/devshop/home/index" class="text-dark text-decoration-none">DevShop</a></h1>
+	</div>
+
+	<div class="col">
+		<!-- Nút toggle -->
+		<button class="navbar-toggler d-md-none" onclick="toggleMenu()">
+			<i class="bi bi-list"></i>
+		</button>
+
+		<!-- Thanh điều hướng -->
+		<nav>
+			<ul class="nav justify-content-center">
+				<li class="nav-item">
+					<a class="nav-link" href="/devshop/home/sanphammoi">Sản phẩm mới</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/devshop/home/banchay">bán chạy </a>
+				</li>
+				<li class="nav-item " th:each="category:${categories}">
+					<a class="nav-link" th:href="@{/devshop/home/{id}(id=${category.category_id})}" th:text="${category.name} ">
+					
+					</a>
+					<ul th:if="${not #lists.isEmpty(category.subCategories)}">
+					            <li th:each="sub : ${category.subCategories}">
+					                <a th:href="@{/devshop/home/{id}(id=${sub.category_id})}" th:text="${sub.name}"></a>
+					            </li>
+					        </ul>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/devshop/home/tin">Tin hot</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/devshop/home/uudai">Ưu đãi</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<div class="col-auto">
+		<div class="d-flex gap-3">
+			<a href="#" class="text-dark" title="Search">
+				<i class="bi bi-search"></i>
+			</a>
+			<a href="#" class="text-dark" title="Cart">
+				<i class="bi bi-cart"></i>
+			</a>
+			<a href="/devshop/home/login" class="text-dark" title="Profile">
+				<i class="bi bi-person"></i>
+			</a>
+		</div>
+	</div>
+</div>

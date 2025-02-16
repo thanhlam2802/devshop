@@ -35,6 +35,63 @@
 		font-size: 1.8rem;
 		font-weight: bold;
 	}
+	/* Căn chỉnh menu cha */
+	.nav {
+	    display: flex;
+	    justify-content: center;
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	    position: relative; /* Giữ vị trí tương đối */
+	    z-index: 10; /* Đảm bảo menu chính có z-index cao */
+	}
+
+	/* Căn chỉnh các mục menu */
+	.nav-item {
+	    position: relative;
+	    padding: 10px 15px;
+	}
+
+	/* Thiết lập menu con ẩn ban đầu */
+	.nav-item ul {
+	    display: none;
+	    position: absolute;
+	    top: 100%;
+	    left: 0;
+	    background: white;
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	    min-width: 150px;
+	    z-index: 999; /* Đảm bảo menu con hiển thị trên cùng */
+	}
+
+	/* Định dạng các mục con */
+	.nav-item ul li {
+	    padding: 10px;
+	    border-bottom: 1px solid #ddd;
+	}
+
+	/* Hiển thị menu con khi hover vào mục cha */
+	.nav-item:hover ul {
+	    display: block;
+	}
+
+	/* Định dạng link */
+	.nav-item a {
+	    text-decoration: none;
+	    color: black;
+	    display: block;
+	    padding: 8px 12px;
+	}
+
+	/* Đổi màu khi hover */
+	.nav-item ul li a:hover {
+	    background: #f1f1f1;
+	}
+
+
 </style>
 
 <body>
