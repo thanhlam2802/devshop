@@ -1,14 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{/home/layout::shared(~{::.tieude})}">
+<html lang="en" th:replace="~{/home/layout::shared(~{::.content},~{::link})}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trang chủ</title>
+	<link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
-    <h2 class="tieude">Trang chủ</h2>
+	<div class="content">
+		<h2 style="text-align: center;">Top bán chạy</h2>
+		<div class="product-list">
+			<div class="product-item" th:each="sp:${listallproduct}">
+				<a th:href="@{/devshop/product/{product_id}(product_id=${sp.product_id})}">
+					<img th:src="@{/photo/{image}(image=${sp.mainImage})}" th:alt="${sp.name}">
+					<div class="product-name" th:text="${sp.name}"></div>
+					<div class="product-price" th:text="${sp.price}"></div>
+					<div class="color-options">
+						<span th:each="pc : ${sp.productColors}" th:style="'background:' + ${pc.color.hexCode} + ';'">
+						</span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
 </body>
 
 </html>

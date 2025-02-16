@@ -1,16 +1,33 @@
 package javafive.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import javafive.entity.Product;
+import javafive.service.ProductService;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-
+	
+    
+	@Autowired
+	ProductService productService;
     @RequestMapping("/devshop/home/index")
     public String home(Model model, HttpServletRequest request) {
         showBanner(request, model);
+        List <Product> listall = productService.getAllProducts();
+        model.addAttribute("listallproduct", listall);
+    
+
         return "/home/index";
     }
 
