@@ -23,8 +23,8 @@ public class CategoryImpl implements CategoryService{
 
 	@Override
 	public Optional<Category> getCategoryById(Integer categoryId) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		
+		return daoc.findById(categoryId);
 	}
 
 	@Override

@@ -1,14 +1,205 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{/home/layout::shared(~{::.tieude})}">
+<html lang="en" th:replace="~{/home/layout::shared(~{::.content},~{::link})}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>trang do nu</title>
+	<link rel="stylesheet" href="/css/page.css">
 </head>
 
 <body>
-    <h2 class="tieude">Do nu</h2>
+    <div class="content">
+		<div class="container-page">
+		    <div class="hinde">
+		        <div>Trang chủ</div>
+		        <div class="breadcrumbs">
+		            <span>&gt;</span>
+		        </div>
+		        <div th:text="${category.orElse(null)?.name ?: 'khong co ten'}">
+		        </div>
+		    </div>
+		    <div>
+		        <h1 th:text="${category.orElse(null)?.name ?: 'khong co ten'}"></h1>
+		    </div>
+		</div>
+
+		<div class="container-page">
+		    <div class="product-filter">
+		        <h5 th:text="${#lists.size(listbyCategory)} +' sản phẩm '"></h5>
+				<form method="GET" th:action="${category.isPresent()} ? @{/devshop/home/{categoryId}(categoryId=${category.get().category_id})} : ''">
+					<select name="sort" onchange="this.form.submit()">
+					    <option th:text="'Mặc định'" th:selected="${selectedSort == null or selectedSort == ''}"></option>
+					    <option value="newest" th:selected="${selectedSort == 'newest'}">Mới nhất</option>
+					    <option value="low-price" th:selected="${selectedSort == 'low-price'}">Giá thấp đến cao</option>
+					    <option value="high-price" th:selected="${selectedSort == 'high-price'}">Giá cao xuống thấp</option>
+					</select>
+					
+				</form>
+		    </div>
+		    <div class="filters">
+		        <div class="col-3">
+		            <h2>Bộ lọc</h2>
+		            <div class="filter-item">
+		                <p>Màu sắc</p>
+		                <div class="colors">
+		                    <div class="grid">
+		                        <div class="item">
+		                            <input type="checkbox" id="color-black" class="hidden">
+		                            <label for="color-black" class="checkbox-label">
+		                                <div class="color-box ">
+		                                    <div class="">
+		                                        <i class="fas fa-check text-white"></i>
+		                                    </div>
+		                                </div>
+		                                <span class="text">Đen</span>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="color-gray" class="hidden">
+		                            <label for="color-gray" class="checkbox-label">
+		                                <div class="color-box bg-gray-400"></div>
+		                                <span class="text">Xám</span>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="color-purple" class="hidden">
+		                            <label for="color-purple" class="checkbox-label">
+		                                <div class="color-box bg-purple-600"></div>
+		                                <span class="text">Tím</span>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="color-brown" class="hidden">
+		                            <label for="color-brown" class="checkbox-label">
+		                                <div class="color-box bg-b"></div>
+		                                <span class="text">Nâu</span>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="color-white" class="hidden">
+		                            <label for="color-white" class="checkbox-label">
+		                                <div class="color-box border-gray-400"></div>
+		                                <span class="text">Trắng</span>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="color-other" class="hidden">
+		                            <label for="color-other" class="checkbox-label">
+		                                <div class="color-box border-black">
+		                                    <div class="">
+		                                        <i class="fas fa-check text-white"></i>
+		                                    </div>
+		                                </div>
+		                                <span class="text">Khác</span>
+		                            </label>
+		                        </div>
+		                    </div>
+		                </div>
+
+		            </div>
+		            <div class="filter-item">
+		                <p>Kích thước</p>
+		                <div class="sizes">
+		                    <div class="grid">
+		                        <div class="item">
+		                            <input type="checkbox" id="size-s" class="hidden">
+		                            <label for="size-s" class="checkbox-label">
+		                                <div class="size-box border-gray-400">
+		                                    <span class="text">S</span>
+		                                </div>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="size-m" class="hidden">
+		                            <label for="size-m" class="checkbox-label">
+		                                <div class="size-box border-gray-400">
+		                                    <span class="text">M</span>
+		                                </div>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="size-l" class="hidden">
+		                            <label for="size-l" class="checkbox-label">
+		                                <div class="size-box border-gray-400">
+		                                    <span class="text">L</span>
+		                                </div>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="size-xl" class="hidden">
+		                            <label for="size-xl" class="checkbox-label">
+		                                <div class="size-box border-gray-400">
+		                                    <span class="text">XL</span>
+		                                </div>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="size-2xl" class="hidden">
+		                            <label for="size-2xl" class="checkbox-label">
+		                                <div class="size-box border-gray-400">
+		                                    <span class="text">2XL</span>
+		                                </div>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="size-3xl" class="hidden">
+		                            <label for="size-3xl" class="checkbox-label">
+		                                <div class="size-box border-gray-400">
+		                                    <span class="text">3XL</span>
+		                                </div>
+		                            </label>
+		                        </div>
+		                        <div class="item">
+		                            <input type="checkbox" id="size-4xl" class="hidden">
+		                            <label for="size-4xl" class="checkbox-label">
+		                                <div class="size-box border-gray-400">
+		                                    <span class="text">4XL</span>
+		                                </div>
+		                            </label>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="filter-item">
+		                <p>Theo giá</p>
+		                <div class="price-range">
+		                    <label class="checkbox-label-gia">
+		                        <input type="checkbox" class="checkbox-gia">
+		                        <span class="text-gia">Dưới 350.000đ</span>
+		                    </label>
+		                    <label class="checkbox-label-gia">
+		                        <input type="checkbox" class="checkbox-gia">
+		                        <span class="text-gia">Từ 350.000đ - 750.000đ</span>
+		                    </label>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="col-9">
+		            <div class="product-list">
+		                <!-- Sản phẩm 1 -->
+		                <div th:each="product:${listbyCategory}"class="product-item">
+		                    <a href="#">
+		                        <img th:src="@{/photo/{image}(image=${product.mainImage})}"
+		                            th:alt="${product.mainImage}">
+		                        <div class="product-name" th:text="${product.name}"></div>
+		                        <div class="product-price" th:text="${product.price}+'đ'"></div>
+		                        <div class="color-options">
+		                            <span class="color-option" th:each="color:${product.productColors}"
+									th:style="'background-color:'  + ${color.color.hexCode}"></span>
+		                            
+		                        </div>
+		                    </a>
+		                </div>
+
+
+		            </div>
+		        </div>
+
+		    </div>
+		</div>
+	</div>
+	
 </body>
 
 </html>

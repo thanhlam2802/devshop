@@ -8,20 +8,25 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="/css/login.css">
 	<th:block th:replace="${y}"></th:block>
 </head>
 <style>
 	body {
 		font-family: 'Poppins', sans-serif;
 	}
-
+	
 	.logo {
 		font-size: 2rem;
 		font-weight: 600;
 		color: #000;
 	}
-
+	.header-menu{
+		padding: 0 20px ;
+		position: sticky;
+		       top: 0;
+		       background-color: #fff; 
+		       z-index: 1000; 
+	}
 	.nav-link {
 		font-size: 1rem;
 		font-weight: 500;
@@ -92,6 +97,73 @@
 	    background: #f1f1f1;
 	}
 
+	footer {
+	    padding: 2rem;
+		 background-color: #1f2937;
+		          color: #d1d5db;
+		            font-family: Arial, sans-serif;
+	}
+
+	.container {
+	    max-width: 1200px;
+	    margin: 0 auto;
+	    display: grid;
+	    grid-template-columns: 1fr;
+	    gap: 2rem;
+	}
+
+	@media (min-width: 768px) {
+	    .container {
+	        grid-template-columns: repeat(3, 1fr);
+	    }
+	}
+
+	footer h3 {
+	    font-size: 1.125rem;
+	    font-weight: bold;
+	    margin-bottom: 1rem;
+	}
+
+	footer ul {
+	    list-style: none;
+	    padding: 0;
+	}
+
+	footer ul li {
+	    margin-bottom: 0.5rem;
+	}
+
+	.contact-info ul li {
+	    display: flex;
+	    align-items: center;
+	}
+
+	.contact-info ul li i {
+	    margin-right: 0.5rem;
+	}
+
+	.social-icons a {
+	    color: #d1d5db;
+	    margin-right: 1rem;
+	    font-size: 1.25rem;
+	}
+
+	.footer-bottom {
+	    border-top: 1px solid #374151;
+	    margin-top: 2rem;
+	    padding-top: 1rem;
+	    text-align: center;
+	}
+
+	.footer-bottom p {
+	    margin: 0.5rem 0;
+	}
+
+	.footer-bottom img {
+	    height: 50px;
+	    width: 50px;
+	    margin: 0 0.5rem;
+	}
 
 </style>
 
@@ -101,7 +173,7 @@
 		<header class="container py-3" th:replace="~{/home/menu}">
 
 		</header>
-		<hr>
+		
 
 		<th:block th:if="${showBanner}">
 		    <th:block th:replace="~{/home/banner}"></th:block>
@@ -113,7 +185,64 @@
 				<div th:replace="${x}"></div>
 			</article>
 		</main>
-		<footer>FOOTER</footer>
+		<footer>
+		        <div class="container">
+		            <div>
+		                <h3>Dịch vụ khách hàng</h3>
+		                <ul>
+		                    <li>Chính sách khách hàng thân thiết</li>
+		                    <li>Chính sách đổi trả, bảo hành</li>
+		                    <li>Chính sách bảo mật</li>
+		                    <li>Chính sách thanh toán, giao nhận</li>
+		                    <li>Chính sách đơn đồng phục</li>
+		                    <li>Hướng dẫn chọn size</li>
+		                    <li>Đăng ký đối tác</li>
+		                </ul>
+		            </div>
+		            <div>
+		                <h3>Về YODY</h3>
+		                <ul>
+		                    <li>Giới thiệu</li>
+		                    <li>Tuyển dụng</li>
+		                    <li>Tin tức</li>
+		                    <li>Hệ thống cửa hàng</li>
+		                    <li>Tin khuyến mãi</li>
+		                </ul>
+		                <h3>Địa chỉ liên hệ</h3>
+		                <p>Địa chỉ: Đường An Định - Phường Việt Hòa - Thành phố Hải Dương</p>
+		            </div>
+		            <div class="contact-info">
+		                <h3>YODY lắng nghe bạn</h3>
+		                <p>Chúng tôi luôn trân trọng và mong đợi nhận được mọi ý kiến đóng góp từ khách hàng để có thể nâng cấp
+		                    trải nghiệm dịch vụ và sản phẩm tốt hơn nữa.</p>
+		                <ul>
+		                    <li><i class="fas fa-phone-alt"></i> 024 999 86 999</li>
+		                    <li><i class="fas fa-link"></i> Zalo: <a href="https://zalo.me/yodyfashion"
+		                            class="underline">https://zalo.me/yodyfashion</a></li>
+		                    <li><i class="fas fa-question-circle"></i> Góp ý khiếu nại 1800 2086</li>
+		                    <li><i class="fas fa-envelope"></i> Email: <a href="mailto:chamsockhachhang@yody.vn"
+		                            class="underline">chamsockhachhang@yody.vn</a></li>
+		                </ul>
+		                <div class="social-icons">
+		                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+		                    <a href="#"><i class="fab fa-instagram"></i></a>
+		                    <a href="#"><i class="fab fa-zalo"></i></a>
+		                    <a href="#"><i class="fab fa-youtube"></i></a>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="footer-bottom">
+		            <p>@ CÔNG TY CỔ PHẦN THỜI TRANG YODY</p>
+		            <p>Mã số doanh nghiệp: 0801206940. Giấy chứng nhận đăng ký doanh nghiệp do Sở Kế hoạch và Đầu tư TP Hải
+		                Dương cấp lần đầu ngày 04/03/2017</p>
+		            <div>
+		                <img src="https://storage.googleapis.com/a1aa/image/XNRAPYnKgzQiYIEdIrgZh8Q_eDrULFqPWpKVeZaFPyw.jpg"
+		                    alt="Bộ Công Thương logo">
+		                <img src="https://storage.googleapis.com/a1aa/image/SCe8nmdLNDHPH_340-9PKSZajcMaKt6NvRxelSr5hiU.jpg"
+		                    alt="DMCA Protected logo">
+		            </div>
+		        </div>
+		    </footer>
 	</div>
 </body>
 

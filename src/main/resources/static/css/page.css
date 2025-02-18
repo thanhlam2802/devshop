@@ -1,0 +1,256 @@
+.container-page {
+       width: 90%;
+       margin: 0 auto;
+       padding: 10px 0;
+   }
+
+   .product-list {
+       display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+       gap: 16px;
+       padding: 20px;
+   }
+
+   @media (min-width: 1024px) {
+       .product-list {
+           grid-template-columns: repeat(4, 1fr);
+       }
+   }
+
+   .product-item {
+       overflow: hidden;
+       text-align: center;
+       background: #fff;
+   }
+
+   .product-item img {
+       width: 100%;
+       height: auto;
+   }
+
+   .product-name {
+       font-size: 16px;
+       padding: 8px;
+   }
+
+   .product-price {
+       font-weight: bold;
+       color: #d0021b;
+       padding: 5px;
+   }
+
+   .color-options {
+       display: flex;
+       justify-content: center;
+       gap: 5px;
+       padding: 8px;
+   }
+
+   .color-options span {
+       width: 15px;
+       height: 15px;
+       border-radius: 50%;
+       display: inline-block;
+       border: 1px solid #ccc;
+   }
+
+   .product-item a {
+       text-decoration: none;
+       color: inherit;
+       display: block;
+   }
+
+   .hinde {
+       display: flex;
+       align-items: center;
+       padding: 10px 0;
+   }
+
+   .hinde div {
+       font-size: 18px;
+       color: inherit;
+       margin-right: 10px;
+   }
+
+   .breadcrumbs {
+       display: flex;
+       align-items: center;
+       justify-content: flex-start;
+   }
+
+
+   .breadcrumbs span {
+       color: inherit;
+       font-size: 18px;
+       vertical-align: middle;
+
+   }
+
+   h1 {
+       font-size: 24px;
+       color: inherit;
+       margin: 10px 0;
+       font-weight: 500;
+   }
+
+
+   .product-filter {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin-bottom: 10px;
+       position: sticky;
+       top: 0;
+       background-color: #fff;
+       
+   }
+
+   select {
+	border-radius: 10px;
+	padding: 8px;
+       border: 1px solid rgb(177, 182, 175);
+   }
+  
+
+   .filters {
+       display: flex;
+       z-index: 100;
+   }
+
+   .col-3 {
+       width: 15%;
+       padding: 20px;
+
+       height: 100vh;
+	       position: sticky;
+	       top: 0; 
+	       background-color: #fff;
+	       z-index: 800; 
+   }
+
+   .col-9 {
+       width: 88%;
+       padding: 20px;
+	   
+
+   }
+
+
+   .filter-item {
+       margin-bottom: 20px;
+   }
+
+   h2 {
+       font-size: 20px;
+       color: #000000;
+       margin-bottom: 20px;
+   }
+
+   .filter-item p {
+       font-size: 16px;
+       margin-bottom: 10px;
+   }
+
+   .colors {
+       display: flex;
+       flex-wrap: wrap;
+
+   }
+
+
+   .grid {
+       display: grid;
+       grid-template-columns: repeat(3, 1fr);
+       gap: 16px;
+       width: 100%;
+   }
+
+   .item {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+   }
+
+   .checkbox-label {
+       cursor: pointer;
+       display: inline-block;
+       text-align: center;
+   }
+
+   .color-box,
+   .size-box {
+       width: 2.5rem;
+       height: 2.5rem;
+       border-radius: 9999px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       border: 2px solid transparent;
+   }
+
+   .size-box {
+       border-radius: 0.375rem;
+   }
+
+   .text {
+       margin-top: 4px;
+       font-size: 0.875rem;
+   }
+
+   .checked {
+       border-color: black;
+   }
+
+   .border-gray-400 {
+       border-color: #D1D5DB;
+   }
+
+   .bg-purple-600 {
+       background-color: #6B46C1;
+   }
+
+   .bg-b {
+       background-color: #8B4513;
+   }
+
+   .bg-green-600 {
+       background-color: #38A169;
+   }
+
+
+   .colors input[type="checkbox"],
+   .sizes input[type="checkbox"] {
+       position: absolute;
+       opacity: 0;
+       pointer-events: all;
+       width: 0;
+       height: 0;
+   }
+
+   input[type="checkbox"]:checked+.checkbox-label .color-box,
+   input[type="checkbox"]:checked+.checkbox-label .size-box {
+       border-color: black;
+   }
+
+
+   .price-range {
+       display: flex;
+       flex-direction: column;
+       gap: 10px;
+       /
+   }
+
+   .checkbox-label-gia {
+       display: flex;
+       align-items: center;
+   }
+
+   .checkbox-gia {
+       margin-right: 10px;
+
+   }
+
+   .text-gia {
+       color: #374151;
+       font-size: 18px;
+   }

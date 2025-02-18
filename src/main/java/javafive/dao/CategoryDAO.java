@@ -12,9 +12,10 @@ import javafive.entity.Category;
 
 public interface CategoryDAO extends JpaRepository<Category, Integer>{
 	List<Category> findByParentCategoryIsNull();
+	
 	@Query("SELECT c FROM Category c WHERE c.parentCategory.category_id = :parentId")
 	List<Category> findSubCategories(@Param("parentId") Integer parentId);
 
-
+	
 
 }
