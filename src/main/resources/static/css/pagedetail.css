@@ -52,39 +52,46 @@ nav span.separator {
 
 
 
-.container {
-    display: flex;
-    align-items: flex-start; 
-    gap: 8px; 
+.container-img {
+	display: flex;
+	    align-items: flex-start; /* Căn các phần tử về phía trên */
+	    gap: 10px;
+
 }
 
 .thumbnails {
-    width: 60px; 
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: column; /* Sắp xếp ảnh nhỏ theo cột */
+    gap: 10px;
+    width: 80px;
+    flex-shrink: 0; /* Ngăn chặn bị thu nhỏ */
 }
 
 .thumbnail {
     width: 100%;
     height: 80px;
     object-fit: cover;
-    border: 1px solid #d1d5db;
+    border: 2px solid #d1d5db;
     cursor: pointer;
+    transition: border 0.3s ease-in-out;
+}
+
+.thumbnail:hover {
+    border: 2px solid #000;
 }
 
 .main-image {
-    flex: 1; 
+    flex-grow: 1; /* Ảnh chính mở rộng chiếm phần còn lại */
+    display: flex;
+    justify-content: center;
 }
 
 .main-image img {
     width: 500px;
     height: 650px;
     object-fit: cover;
+    border: 2px solid #d1d5db;
 }
-
-
-
 
 
 .product-container-7 {
@@ -124,7 +131,7 @@ h2 {
     gap: 10px; 
 }
 
-.color-container {
+form {
     display: flex;
     flex-wrap: wrap; 
     gap: 10px; 

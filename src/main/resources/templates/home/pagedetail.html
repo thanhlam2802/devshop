@@ -22,26 +22,15 @@
 			</div>
 			<div class="product-container">
 				<div class="col-5">
-					<div class="container">
-
+					<div class="container-img">
 						<div class="thumbnails">
-							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
-								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
-							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
-								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
-							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
-								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
-							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
-								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
-							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
-								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
-							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
-								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
+						    <img alt="" th:each="img:${listImage}" class="thumbnail"
+						        th:src="${#strings.startsWith(img.imageUrl, 'http') ? img.imageUrl : '/photo/imageColor/' + img.imageUrl}" />
 						</div>
 						<!-- Main image -->
 						<div class="main-image">
-							<img alt="A girl in an orange shirt and white skirt"
-								src="https://storage.googleapis.com/a1aa/image/ykLqB1QuhNZFwqOGPILy0xS-oPlaZBa3fBTSPxsFTrA.jpg" />
+							<img alt=""
+								th:src="@{/photo/{image}(image=${product.mainImage})}" />
 						</div>
 					</div>
 				</div>
@@ -58,10 +47,13 @@
 						<div class="colors">
 						    <label>Màu sắc:</label>
 						    <div class="color-container">
-						        <div class="color-options" th:each="cl, status : ${product.productColors}">
-						            <input type="radio" name="color" th:id="'color' + ${status.index}" th:value="${cl.color.color_id}">
-						            <label th:for="'color' + ${status.index}" class="color" th:style="'background:' + ${cl.color.hexCode} + ';'"></label>
-						        </div>
+								<form method="post" th:action="@{/devshop/product/{product_id}(product_id=${product.product_id})}">
+								    <div class="color-options" th:each="cl, status : ${product.productColors}">
+								        <input type="radio" onchange="this.form.submit()" name="color" th:id="'color' + ${status.index}" 
+								               th:value="${cl.color.color_id}" th:checked="${cl.color.color_id == selectedColor}">
+								        <label th:for="'color' + ${status.index}" class="color" th:style="'background:' + ${cl.color.hexCode} + ';'"></label>
+								    </div>
+								</form>
 						    </div>
 						</div>
 

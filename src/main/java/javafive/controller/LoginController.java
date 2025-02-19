@@ -34,7 +34,7 @@ public class LoginController {
 			model.addAttribute("msg", "Invalid password!");
 		} else {
 			model.addAttribute("msg", "Login successfully!");
-			if(remember) { // tạo cookie
+			if(remember) { 
 				cookieService.create("un", username, 30 * 24 * 60 * 60);
 				cookieService.create("pw", password, 30 * 24 * 60 * 60);
 			} else { // xóa cookie

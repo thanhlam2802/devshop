@@ -16,7 +16,9 @@ import javafive.entity.Product;
 import javafive.entity.ProductVariant;
 import javafive.entity.Category;
 import javafive.entity.Color;
+import javafive.entity.Image;
 import javafive.service.CategoryService;
+import javafive.service.ImageService;
 import javafive.service.ProductService;
 import javafive.service.ProductVariantService;
 
@@ -28,6 +30,9 @@ public class PageController {
 	CategoryService categoryService;
 	@Autowired
 	ProductVariantService productVariantService;
+	@Autowired
+	ImageService imageService;
+	
 	 @RequestMapping("/devshop/home/{product_id}")
 	    public String home(Model model, @PathVariable("product_id") Integer productId,
 	    		@RequestParam(value = "sort", required = false, defaultValue = "default") String sort) {
@@ -44,15 +49,22 @@ public class PageController {
 	        return "/home/page";
 	    }
 	 @RequestMapping("/devshop/product/{product_id}")
-	 public String pageDetail(Model model, @PathVariable("product_id") Integer productId) {
+	 public String pageDetail(Model model, @PathVariable("product_id") Integer productId,
+			 								@RequestParam (value ="color",required = false) Integer index) {
 		 Product product = productService.getProductById(productId).orElse(null);
-		
+		 if (index == null && product != null && !product.getProductColors().isEmpty()) {
+		        index = product.getProductColors().get(0).getColor().getColor_id();
+		    }
+
+		 System.out.print("radio index: "+index);
+		 List<Image> listImage =  imageService.getImagebyProductIdAngColorId(productId, index);
+		 System.out.print(listImage);
 		 
 	     List<ProductVariant> list = productVariantService.getVariantsByProductId(productId);
-	     
+	     model.addAttribute("listImage", listImage);
 	     model.addAttribute("product", product);
 	     model.addAttribute("listProductVariant", list);
-	     
+	     model.addAttribute("selectedColor", index);
 	     return "/home/pagedetail";
 	 }
 
