@@ -26,7 +26,7 @@ public class HomeController {
         showBanner(request, model);
         List <Product> listall = productService.getAllProducts();
         model.addAttribute("listallproduct", listall);
-    
+        
 
         return "/home/index";
     }

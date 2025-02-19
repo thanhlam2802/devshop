@@ -1,6 +1,8 @@
 package javafive.service.implement;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +14,7 @@ import javafive.dao.CategoryDAO;
 import javafive.dao.ProductDAO;
 import javafive.entity.Category;
 import javafive.entity.Product;
+
 import javafive.service.ProductService;
 
 @Service
@@ -26,9 +29,9 @@ public class ProductImpl implements ProductService{
 	}
 
 	@Override
-	public Product getProductById(Integer id) {
+	public Optional<Product> getProductById(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		return daop.findById(id);
 	}
 
 	@Override
@@ -37,11 +40,7 @@ public class ProductImpl implements ProductService{
 		return null;
 	}
 
-	@Override
-	public void deleteProductById(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public List<Product> searchProductsByName(String name) {
@@ -63,6 +62,8 @@ public class ProductImpl implements ProductService{
         Pageable pageable = PageRequest.of(0, 100, sort);
         return daop.findByCategoryId(categoryId, pageable);
 	}
+	
+	
 
 
 

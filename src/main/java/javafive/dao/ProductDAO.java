@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.domain.Pageable;
 
-import javafive.entity.Category;
 import javafive.entity.Product;
 
 public interface ProductDAO extends JpaRepository<Product, Integer>{

@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import javafive.entity.Product;
+
+import javafive.entity.ProductVariant;
 import javafive.entity.Category;
+import javafive.entity.Color;
 import javafive.service.CategoryService;
 import javafive.service.ProductService;
+import javafive.service.ProductVariantService;
 
 @Controller
 public class PageController {
@@ -22,10 +26,12 @@ public class PageController {
 	ProductService productService;
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	ProductVariantService productVariantService;
 	 @RequestMapping("/devshop/home/{product_id}")
 	    public String home(Model model, @PathVariable("product_id") Integer productId,
 	    		@RequestParam(value = "sort", required = false, defaultValue = "default") String sort) {
-
+	
 	        List<Product> listbyCategory = productService.getAllProductsByCategory(productId,sort);
 	        Optional<Category> category = categoryService.getCategoryById(productId);
 	        if (category.isPresent()) {
@@ -37,4 +43,17 @@ public class PageController {
 	        model.addAttribute("category",category);
 	        return "/home/page";
 	    }
+	 @RequestMapping("/devshop/product/{product_id}")
+	 public String pageDetail(Model model, @PathVariable("product_id") Integer productId) {
+		 Product product = productService.getProductById(productId).orElse(null);
+		
+		 
+	     List<ProductVariant> list = productVariantService.getVariantsByProductId(productId);
+	     
+	     model.addAttribute("product", product);
+	     model.addAttribute("listProductVariant", list);
+	     
+	     return "/home/pagedetail";
+	 }
+
 }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/home/layout::shared(~{::.content},~{::link})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>trang chi tiet</title>
+	<link rel="stylesheet" href="/css/pagedetail.css">
+</head>
+
+<body>
+	<div class="content">
+		<div class="container-page">
+			<div>
+				<div>
+					<nav>
+						<a href="#">Trang chủ</a>
+						<span class="separator">›</span>
+						<a href="#">Trẻ em</a>
+					</nav>
+				</div>
+			</div>
+			<div class="product-container">
+				<div class="col-5">
+					<div class="container">
+
+						<div class="thumbnails">
+							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
+								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
+							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
+								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
+							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
+								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
+							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
+								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
+							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
+								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
+							<img alt="Thumbnail of a girl in an orange shirt and white skirt" class="thumbnail"
+								src="https://storage.googleapis.com/a1aa/image/T00HMJKkFnFxTux139tHHpBU9li8devTExADBIwq5C0.jpg" />
+						</div>
+						<!-- Main image -->
+						<div class="main-image">
+							<img alt="A girl in an orange shirt and white skirt"
+								src="https://storage.googleapis.com/a1aa/image/ykLqB1QuhNZFwqOGPILy0xS-oPlaZBa3fBTSPxsFTrA.jpg" />
+						</div>
+					</div>
+				</div>
+				<div class="col-7">
+					<div class="product-container-7">
+						<h2 th:text="${product.name}"></h2>
+						<p class="product-code">QKM6017-GHS-29 📎</p>
+						<div class="rating">
+							⭐⭐⭐⭐⭐ <span class="score">4.8 (120)</span> | Đã bán <strong>3965</strong>
+						</div>
+						<div class="price" th:text="${product.price}+'đ'"></div>
+						<p class="viewers"> 41 người đang xem sản phẩm này</p>
+
+						<div class="colors">
+						    <label>Màu sắc:</label>
+						    <div class="color-container">
+						        <div class="color-options" th:each="cl, status : ${product.productColors}">
+						            <input type="radio" name="color" th:id="'color' + ${status.index}" th:value="${cl.color.color_id}">
+						            <label th:for="'color' + ${status.index}" class="color" th:style="'background:' + ${cl.color.hexCode} + ';'"></label>
+						        </div>
+						    </div>
+						</div>
+
+						<!-- Chọn kích thước -->
+						<div class="sizes">
+							<label>Kích thước:</label>
+							<div class="size-container">
+							<div class="size-options" th:each="cl,status:${product.productSizes}" >
+								<input type="radio" name="size" th:id="'size'+${status.index}"  th:value="${cl.size.sizeId}">
+								<label th:for="'size'+${status.index}" class="size" th:text="${cl.size.size}"></label>
+							</div>
+							</div>
+						</div>
+
+						<div class="quantity">
+							<label>Số lượng:</label>
+							<div>
+								<input type="number" min="1" value="1">
+								<button class="add-to-cart">Thêm vào giỏ</button>
+							</div>
+
+						</div>
+						<div class="buttons">
+							<button class="buy-now">Mua ngay</button>
+						</div>
+					</div>
+					<div class="info-container">
+						<div class="info-item">
+							<i class="fas fa-shipping-fast"></i>
+							<strong>Miễn phí vận chuyển:</strong> Đơn hàng từ 498k
+						</div>
+
+						<div class="info-item">
+							<i class="far fa-clock"></i>
+							<strong>Giao hàng:</strong> Từ 3 - 5 ngày trên cả nước
+						</div>
+
+						<div class="info-item">
+							<i class="fas fa-exchange-alt"></i>
+							<strong>Miễn phí đổi trả:</strong> Tại 267+ cửa hàng trong 15 ngày
+						</div>
+
+						<div class="info-item">
+							<i class="fas fa-tag"></i>
+							Sử dụng mã giảm giá ở bước thanh toán
+						</div>
+
+						<div class="info-item">
+							<i class="fas fa-lock"></i>
+							Thông tin bảo mật và mã hoá
+						</div>
+
+						<p class="product-description">
+							• Áo phao nam VIP giữ ấm vượt trội với lớp lông vũ cao cấp, công nghệ ép bonding hiện đại
+							giúp
+							hạn chế tối
+							đa tình trạng xù lông, hạn chế bám bẩn và giữ form áo bền đẹp.
+							Lớp lót Nylon siêu nhẹ, cản gió hiệu quả, bảo vệ bạn khỏi thời tiết lạnh giá. Thiết kế hiện
+							đại,
+							phối ni tay
+							thời thượng.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+
+</body>
+
+</html>

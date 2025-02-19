@@ -179,7 +179,7 @@
 		            <div class="product-list">
 		                <!-- Sản phẩm 1 -->
 		                <div th:each="product:${listbyCategory}"class="product-item">
-		                    <a href="#">
+		                    <a th:href="@{/devshop/product/{product_id}(product_id=${product.product_id})}">
 		                        <img th:src="@{/photo/{image}(image=${product.mainImage})}"
 		                            th:alt="${product.mainImage}">
 		                        <div class="product-name" th:text="${product.name}"></div>
