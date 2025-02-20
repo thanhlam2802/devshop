@@ -1,5 +1,7 @@
 package javafive.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import javafive.entity.Product;
 
@@ -18,6 +21,7 @@ import javafive.entity.Category;
 import javafive.entity.Color;
 import javafive.entity.Image;
 import javafive.service.CategoryService;
+import javafive.service.CookieService;
 import javafive.service.ImageService;
 import javafive.service.ProductService;
 import javafive.service.ProductVariantService;
@@ -32,6 +36,8 @@ public class PageController {
 	ProductVariantService productVariantService;
 	@Autowired
 	ImageService imageService;
+	@Autowired 
+	CookieService cookieService;
 	
 	 @RequestMapping("/devshop/home/{product_id}")
 	    public String home(Model model, @PathVariable("product_id") Integer productId,
@@ -55,11 +61,19 @@ public class PageController {
 		 if (index == null && product != null && !product.getProductColors().isEmpty()) {
 		        index = product.getProductColors().get(0).getColor().getColor_id();
 		    }
-
-		 System.out.print("radio index: "+index);
-		 List<Image> listImage =  imageService.getImagebyProductIdAngColorId(productId, index);
-		 System.out.print(listImage);
+	
+		
+		 String producIdV = cookieService.getValue("productIdViewed").replace("~", ",");
+		 List<String> productList = new ArrayList<>(Arrays.asList(producIdV.split(",")));
+		    if (!productList.contains(String.valueOf(productId))) {
+		        productList.add(0, String.valueOf(productId)); 
+		        
+		    }
+		    String newCookieValue = String.join("~", productList);
+		    cookieService.create("productIdViewed", newCookieValue, 24*60*60);
 		 
+		 
+		 List<Image> listImage =  imageService.getImagebyProductIdAngColorId(productId, index);
 	     List<ProductVariant> list = productVariantService.getVariantsByProductId(productId);
 	     model.addAttribute("listImage", listImage);
 	     model.addAttribute("product", product);

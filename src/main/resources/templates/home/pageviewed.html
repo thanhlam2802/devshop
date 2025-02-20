@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>trang chi tiet</title>
+		
+		
+	</head>
+	<style>
+		.recently-viewed {
+		    width: 90%;
+		    margin: auto;
+		}
+		.title-viewed {
+		    font-size: 24px;
+		    font-weight: bold;
+		    margin-bottom: 15px;
+		}
+		.product-list-viewed {
+		    display: flex;
+		    overflow-x: auto;
+		    gap: 10px;
+		    padding: 10px 0;
+		}
+		.product-viewed {
+		    border-radius: 5px;
+		    text-align: center;
+		    
+		}
+
+		.product-viewed img {
+		    width: 400px; 
+		    
+		    object-fit: cover; 
+		    border-radius: 5px;
+		}
+
+		.price-wiewed {
+		    font-size: 18px;
+		    font-weight: bold;
+		}
+		.product-viewed a{
+			text-decoration: none;
+			color: black;
+		}
+
+</style>
+	<body>
+	<div class="recently-viewed">
+	    <div class="title-viewed">Đã xem gần đây</div>
+	    <div class="product-list-viewed">
+	        <!-- Duyệt danh sách sản phẩm đã xem -->
+	        <div class="product-viewed" th:each="product : ${productViewed}">
+	            <a th:href="@{'/devshop/product/' + ${product.product_id}}">
+	                <img th:src="@{|/photo/${product.mainImage}|}" th:alt="${product.name}">
+	                <p th:text="${product.name}"></p>
+	                <p class="price-viewed">
+	                    <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+	                    
+	                </p>
+	            </a>
+	        </div>
+	    </div>
+	</div>
+	</body>
+</html>

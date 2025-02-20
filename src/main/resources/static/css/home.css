@@ -57,3 +57,24 @@
            color: inherit;
            display: block;
        }
+	   .phantrang {
+	           margin: 20px;
+	           padding: 20px;
+	           text-align: center;
+	       }
+
+	       .phantrang a {
+	           text-align: center;
+	           text-decoration: none;
+	           color: #000000;
+	           padding: 10px;
+	           border: 1px solid #ccc;
+	           margin: 5px;
+	           border-radius: 10px;
+
+	       }
+
+	       .phantrang a i {
+	           margin-left: 10px;
+
+	       }

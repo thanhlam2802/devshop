@@ -21,7 +21,7 @@ public class CookieServiceImpl implements CookieService  {
 		cookie.setMaxAge(expiry);
 		cookie.setPath("/");
 		
-		response.addCookie(cookie); // gửi về client
+		response.addCookie(cookie); 
 		
 		return cookie;
 	}

@@ -5,9 +5,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import javafive.dao.CategoryDAO;
@@ -24,7 +27,7 @@ public class ProductImpl implements ProductService{
 	 ProductDAO daop;
 	@Override
 	public List<Product> getAllProducts() {
-		// TODO Auto-generated method stub
+		
 		return daop.findAll();
 	}
 
@@ -61,6 +64,21 @@ public class ProductImpl implements ProductService{
 
         Pageable pageable = PageRequest.of(0, 100, sort);
         return daop.findByCategoryId(categoryId, pageable);
+	}
+
+	@Override
+	public Page<Product> getAllProductsPageAndSort(int number) {
+	
+		Sort sort =  Sort.by(Direction.DESC, "createdAt");
+		Pageable pageable = PageRequest.of(number,10,sort);
+		return  daop.findAll(pageable);
+		
+	}
+
+	@Override
+	public List<Product> getProductByIdList(List<Integer> id) {
+		
+		return daop.findAllById(id);
 	}
 	
 	

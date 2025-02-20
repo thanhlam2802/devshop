@@ -11,8 +11,10 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -21,16 +23,20 @@ public class HomeController {
     
 	@Autowired
 	ProductService productService;
-    @RequestMapping("/devshop/home/index")
+    @RequestMapping("/devshop/page/index")
     public String home(Model model, HttpServletRequest request) {
-        showBanner(request, model);
-        List <Product> listall = productService.getAllProducts();
-        model.addAttribute("listallproduct", listall);
         
-
+        return "forward:/devshop/page/0";
+    }
+    @RequestMapping("/devshop/page/{number}")
+    public String homepage(Model model, HttpServletRequest request,@PathVariable("number") Integer number) {
+        showBanner(request, model);
+        Page <Product> listall = productService.getAllProductsPageAndSort(number);
+        model.addAttribute("listallproduct", listall);
         return "/home/index";
     }
-
+    
+    
     @RequestMapping("/devshop/home/banchay")
     public String bestSellers(Model model, HttpServletRequest request) {
         showBanner(request, model);
@@ -43,19 +49,11 @@ public class HomeController {
         return "/home/sanphammoi";
     }
 
-    @RequestMapping("/devshop/home/nam")
-    public String men(Model model) {
-        return "/home/nam";
-    }
+ 
 
-    @RequestMapping("/devshop/home/nu")
-    public String women(Model model) {
-        return "/home/nu";
-    }
-
-    @RequestMapping("/devshop/home/tinhot")
+    @RequestMapping("/devshop/home/tin")
     public String news(Model model) {
-        return "/home/tin";
+        return "/home/pageviewed";
     }
     @RequestMapping("/devshop/home/login")
     public String login(Model model) {
@@ -65,7 +63,7 @@ public class HomeController {
    
     private void showBanner(HttpServletRequest request, Model model) {
         String uri = request.getRequestURI();
-        boolean showBanner = uri.equals("/devshop/home/index") || 
+        boolean showBanner = uri.matches("/devshop/page(/\\d+)?") || 
                              uri.equals("/devshop/home/banchay") || 
                              uri.equals("/devshop/home/sanphammoi");
         model.addAttribute("showBanner", showBanner);

@@ -37,7 +37,7 @@ public class LoginController {
 			if(remember) { 
 				cookieService.create("un", username, 30 * 24 * 60 * 60);
 				cookieService.create("pw", password, 30 * 24 * 60 * 60);
-			} else { // xóa cookie
+			} else { 
 				cookieService.delete("un");
 				cookieService.delete("pw");
 			}
