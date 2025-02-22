@@ -45,39 +45,50 @@
 						</div>
 						<div class="price" th:text="${product.price}+'đ'"></div>
 						<p class="viewers"> 41 người đang xem sản phẩm này</p>
-
+						
 						<div class="colors">
 						    <label>Màu sắc:</label>
 						    <div class="color-container">
-								<form method="post" th:action="@{/devshop/product/{product_id}(product_id=${product.product_id})}">
-								    <div class="color-options" th:each="cl, status : ${product.productColors}">
-								        <input type="radio" onchange="this.form.submit()" name="color" th:id="'color' + ${status.index}" 
-								               th:value="${cl.color.color_id}" th:checked="${cl.color.color_id == selectedColor}">
-								        <label th:for="'color' + ${status.index}" class="color" th:style="'background:' + ${cl.color.hexCode} + ';'"></label>
-								    </div>
-								</form>
+						        <form method="post" th:action="@{/devshop/product/{product_id}(product_id=${product.product_id})}">
+						            <div class="color-options" th:each="cl, status : ${product.productColors}">
+						                <input type="radio" onchange="this.form.submit()" name="color" th:id="'color' + ${status.index}" 
+						                       th:value="${cl.color.color_id}" th:checked="${cl.color.color_id == selectedColor}">
+						                <label th:for="'color' + ${status.index}" class="color" th:style="'background:' + ${cl.color.hexCode} + ';'"></label>
+						            </div>
+						            <!-- Lưu giá trị đã chọn -->
+						            <input type="hidden" name="selectedColor" th:value="${selectedColor}">
+						        </form>
 						    </div>
 						</div>
 
-						<!-- Chọn kích thước -->
-						<div class="sizes">
-							<label>Kích thước:</label>
-							<div class="size-container">
-							<div class="size-options" th:each="cl,status:${product.productSizes}" >
-								<input type="radio" name="size" th:id="'size'+${status.index}"  th:value="${cl.size.sizeId}">
-								<label th:for="'size'+${status.index}" class="size" th:text="${cl.size.size}"></label>
-							</div>
-							</div>
-						</div>
+						<form method="post" th:action="@{/cart/add}">
+						    <div class="sizes">
+						        <label>Kích thước:</label>
+						        <div class="size-container">
+						            <div class="size-options" th:each="cl, status : ${product.productSizes}">
+						                <input type="radio" name="size" th:id="'size' + ${status.index}" th:value="${cl.size.size}" required>
+						                <label th:for="'size' + ${status.index}" class="size" th:text="${cl.size.size}"></label>
+						            </div>
+						        </div>
+						    </div>
 
-						<div class="quantity">
-							<label>Số lượng:</label>
-							<div>
-								<input type="number" min="1" value="1">
-								<button class="add-to-cart">Thêm vào giỏ</button>
-							</div>
+						    <div class="quantity">
+						        <label>Số lượng:</label>
+						        <div>
+						            <input type="number" name="quantity" min="1" value="1" required>
+						        </div>
+						    </div>
 
-						</div>
+						    <input type="hidden" name="productId" th:value="${product.product_id}">
+						    <input type="hidden" name="productName" th:value="${product.name}">
+						    <input type="hidden" name="color" th:value="${selectedColor}">
+						    <input type="hidden" name="price" th:value="${product.price}">
+						    <input type="hidden" name="image" th:value="${product.mainImage}">
+
+						    <button type="submit" class="add-to-cart">
+						        Thêm vào giỏ
+						    </button>
+						</form>
 						<div class="buttons">
 							<button class="buy-now">Mua ngay</button>
 						</div>
@@ -125,7 +136,16 @@
 		<div th:replace="~{/home/pageviewed}"></div>
 	</div>
 
-
+	<div th:if="${successMessage}" class="modal show">
+	    <div class="modal-content">
+	        <h3>Thông báo</h3>
+	        <p th:text="${successMessage}"></p>
+	        <div class="modal-footer">
+	            <a href="/cart" class="btn">Xem giỏ hàng</a>
+	            <a href="/devshop/product/1001" class="btn secondary">Tiếp tục mua sắm</a>
+	        </div>
+	    </div>
+	</div>
 </body>
 
 </html>

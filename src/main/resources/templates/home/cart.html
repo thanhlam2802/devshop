@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/home/layout::shared(~{::.content},~{::link})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cart</title>
+	<link rel="stylesheet" href="/css/cart.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+	<div class="content">
+		<div class="container-Cart">
+			<div class="title-cart">
+				<h2>Giỏ hàng</h2>
+			</div>
+			<div class="body-cart">
+				<div class="col-8-cart">
+					<div class="detail-cart" th:each="item:${cart}">
+						<input type="checkbox" class="cart-checkbox">
+						<img th:src="@{/photo/{image}(image=${item.image})}" alt="Sản phẩm" class="cart-product-img">
+						<div class="cart-product-info">
+							<h3 class="cart-product-name" th:text="${item.productName}"></h3>
+							<p class="cart-product-price"
+								th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></p>
+						</div>
+						<select class="cart-product-options">
+							<option th:text="${item.color + ', ' + item.size}"></option>
+						</select>
+						<form th:action="@{/cart/update}" method="post">
+						    <input type="hidden" name="productId" th:value="${item.producID}">
+						    <div class="cart-quantity">
+						        <button type="submit" name="action" value="decrease">-</button>
+						        <input type="text" name="quantity" th:value="${item.quantity}" readonly>
+						        <button type="submit" name="action" value="increase">+</button>
+						    </div>
+						</form>
+					</div>
+				</div>
+				<div class="col-4-cart">
+					<div class="title-detail-cart">
+						<h3>Chi tiết đơn hàng</h3>
+					</div>
+					<div class="body-detail-cart">
+						<div class="detail-cart-row">
+							<div class="detail-cart-col">
+								<p>Tổng giá trị sản phẩm</p>
+							</div>
+							<div class="detail-cart-col">
+								<p th:text="${#numbers.formatDecimal(#aggregates.sum(cart.![price * quantity]), 0, 'COMMA', 0, 'POINT') + ' đ'}"></p>
+							</div>
+						</div>
+						<div class="detail-cart-row">
+							<div class="detail-cart-col">
+								<p>Phí vận chuyển</p>
+							</div>
+							<div class="detail-cart-col">
+								<p>20.000 đ</p>
+							</div>
+						</div>
+						<div class="detail-cart-row">
+							<div class="detail-cart-col">
+								<p>Giảm giá vận chuyển</p>
+							</div>
+							<div class="detail-cart-col">
+								<p>-20.000 đ</p>
+							</div>
+						</div>
+						<hr>
+						<div class="detail-cart-row">
+							<div class="detail-cart-col">
+								<p>Tổng tiền</p>
+							</div>
+							<div class="detail-cart-col">
+								<p th:text="${#numbers.formatDecimal(#aggregates.sum(cart.![price * quantity]), 0, 'COMMA', 0, 'POINT') + ' đ'}"></p>
+							</div>
+						</div>
+						<div class="button-cart">
+							<button class="btn btn-primary">Mua hàng</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

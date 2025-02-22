@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-
 @Entity
 @Table(name = "Users")
 public class User {
@@ -29,6 +28,11 @@ public class User {
 	private String mobile;
 	private String photo ;
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+
 	private List <Authority> authorities;
-	
+	@Override
+	public String toString() {
+	    return "User{username='" + username + "', fullname='" + fullname + "', enabled=" + enabled + "}";
+	}
+
 }

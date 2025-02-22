@@ -2,6 +2,8 @@ package javafive.entity;
 
 
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +12,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
 @Entity
 @Table(name="Authorities",uniqueConstraints = {@UniqueConstraint( columnNames = {"username","authorrity"})})
 public class Authority {
@@ -19,9 +28,11 @@ public class Authority {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne
+	
 	@JoinColumn(name ="username")
 	private User user;
 	@ManyToOne
+
 	@JoinColumn(name ="authority")
 	private Roles role;
 }

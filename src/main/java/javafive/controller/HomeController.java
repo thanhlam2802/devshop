@@ -1,6 +1,8 @@
 package javafive.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import javafive.entity.CartItem;
 import javafive.entity.Product;
 import javafive.service.ProductService;
 
@@ -8,12 +10,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -59,6 +63,18 @@ public class HomeController {
     public String login(Model model) {
         return "/home/login";
     }
+    
+    
+    @GetMapping("/cart/show")
+	public String showCart(HttpSession session,Model model) {
+    	List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
+        model.addAttribute("cart", cart);
+      
+	    return "/home/cart";
+	}
 
    
     private void showBanner(HttpServletRequest request, Model model) {

@@ -27,7 +27,7 @@ public class UserImpl implements UserServie{
 	@Override
 	public Optional<User> findById(String id) {
 		
-		return Optional.empty();
+		return dao.findById(id);
 	}
 
 	@Override

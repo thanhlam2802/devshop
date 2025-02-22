@@ -13,6 +13,8 @@ public interface UserDAO extends JpaRepository<User, String>{
 	    @Query("SELECT DISTINCT u FROM User u JOIN u.authorities a WHERE a.role.id = 'CUSTOMER'")
 	    List<User> findAllCustomer();
 	    
+	    
+	    
 	    @Query("SELECT DISTINCT u FROM User u JOIN u.authorities a WHERE a.role.id = 'CUSTOMER'")
 	    Page<User> findCustomersWithPagination(Pageable pageable);
 }

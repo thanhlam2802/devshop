@@ -1,6 +1,6 @@
 package javafive.controller;
 
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,40 +8,66 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+import javafive.entity.User;
 import javafive.service.CookieService;
-
-
-
-
+import javafive.service.UserServie;
 
 @Controller
 public class LoginController {
-	@Autowired 
+	@Autowired
 	CookieService cookieService;
-	
+	@Autowired
+	UserServie userService;
+
 	@RequestMapping("/cookie/login/form")
-	public String loginForm() {
+	public String loginForm( ) {
+
 		return "/home/login";
 	}
+	@RequestMapping("/devshop/home/logout")
+	public String logoutForm(HttpSession session) {
+		session.removeAttribute("currentUser");
+		return "/home/login";
+	}
+
 	@RequestMapping("/cookie/login/check")
-	public String loginCheck(Model model,
-			@RequestParam("username") String username,
-			@RequestParam("password") String password,
-			@RequestParam(name="remember", defaultValue = "false") boolean remember) {
-		if(!username.equalsIgnoreCase("poly")) {
-			model.addAttribute("msg", "Invalid username!");
-		} else if(!password.equals("123")) {
-			model.addAttribute("msg", "Invalid password!");
-		} else {
-			model.addAttribute("msg", "Login successfully!");
-			if(remember) { 
-				cookieService.create("un", username, 30 * 24 * 60 * 60);
-				cookieService.create("pw", password, 30 * 24 * 60 * 60);
-			} else { 
-				cookieService.delete("un");
-				cookieService.delete("pw");
-			}
-		}
-		return "/home/login";
+	public String loginCheck(HttpSession session, Model model, 
+	                         @RequestParam("username") String username,
+	                         @RequestParam("password") String password,
+	                         @RequestParam(name = "remember", defaultValue = "false") boolean remember) {
+
+	    Optional<User> user = userService.findById(username);
+	    if (user.isEmpty()) {
+	        model.addAttribute("msg", "Invalid username!");
+	        return "/home/login";
+	    } else if (!user.get().getPassword().equals(password)) {
+	        model.addAttribute("msg", "Invalid password!");
+	        return "/home/login";
+	    } else {
+	        model.addAttribute("msg", "Login successfully!");
+	        session.setAttribute("currentUser", user.get()); 
+
+	        if (remember) {
+	            cookieService.create("un", username, 30 * 24 * 60 * 60);
+	            cookieService.create("pw", password, 30 * 24 * 60 * 60);
+	        } else {
+	            cookieService.delete("un");
+	            cookieService.delete("pw");
+	        }
+
+	        String role = user.get().getAuthorities().stream()
+	                 .map(auth -> auth.getRole().getId()) 
+	                 .findFirst()
+	                 .orElse("CUSTOMER"); 
+
+	        if ("ADMIN".equalsIgnoreCase(role)) {
+	            return "redirect:/devshop/admin/index"; 
+	        } else {
+	            return "redirect:/devshop/page/index"; 
+	        }
+	    }
 	}
+
+	
 }
