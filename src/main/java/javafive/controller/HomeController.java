@@ -66,15 +66,20 @@ public class HomeController {
     
     
     @GetMapping("/cart/show")
-	public String showCart(HttpSession session,Model model) {
-    	List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+    public String showCart(HttpSession session, Model model) {
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
         }
+        
         model.addAttribute("cart", cart);
-      
-	    return "/home/cart";
-	}
+        if (cart.isEmpty()) {
+            return "/home/cartnull";
+        }
+        
+        return "/home/cart";
+    }
+
 
    
     private void showBanner(HttpServletRequest request, Model model) {

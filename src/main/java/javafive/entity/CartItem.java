@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class CartItem {
+	private String userId;
 	private Integer producID;
 	private String productName;
 	private String color;

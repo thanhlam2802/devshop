@@ -134,18 +134,13 @@
 			</div>
 		</div>
 		<div th:replace="~{/home/pageviewed}"></div>
+	
+		
 	</div>
 
-	<div th:if="${successMessage}" class="modal show">
-	    <div class="modal-content">
-	        <h3>Thông báo</h3>
-	        <p th:text="${successMessage}"></p>
-	        <div class="modal-footer">
-	            <a href="/cart" class="btn">Xem giỏ hàng</a>
-	            <a href="/devshop/product/1001" class="btn secondary">Tiếp tục mua sắm</a>
-	        </div>
-	    </div>
-	</div>
+	<!-- Modal Thông Báo -->
+	
+
 </body>
 
 </html>

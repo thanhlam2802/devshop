@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
 import javafive.entity.User;
 import javafive.service.CookieService;
+import javafive.service.SessionService;
 import javafive.service.UserServie;
 
 @Controller
@@ -19,6 +20,10 @@ public class LoginController {
 	CookieService cookieService;
 	@Autowired
 	UserServie userService;
+	
+	@Autowired
+	SessionService sessionService;
+	
 
 	@RequestMapping("/cookie/login/form")
 	public String loginForm( ) {
@@ -27,7 +32,7 @@ public class LoginController {
 	}
 	@RequestMapping("/devshop/home/logout")
 	public String logoutForm(HttpSession session) {
-		session.removeAttribute("currentUser");
+		sessionService.remove("currentUser");
 		return "/home/login";
 	}
 
@@ -46,7 +51,7 @@ public class LoginController {
 	        return "/home/login";
 	    } else {
 	        model.addAttribute("msg", "Login successfully!");
-	        session.setAttribute("currentUser", user.get()); 
+	        sessionService.set("currentUser", user.get()); 
 
 	        if (remember) {
 	            cookieService.create("un", username, 30 * 24 * 60 * 60);
