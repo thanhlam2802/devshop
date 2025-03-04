@@ -1,0 +1,106 @@
+#cart-toggle {
+	display: none;
+}
+
+
+#cart-toggle:checked~.cart-modal {
+	display: block;
+}
+
+/* Ẩn modal mặc định */
+.cart-modal {
+    width: 350px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    position: fixed;
+    top: 30%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    display: none; /* Ẩn modal khi chưa có sản phẩm */
+}
+
+/* Khi checkbox được check, hiển thị modal */
+#cart-toggle:checked ~ .cart-modal {
+    display: block;
+}
+
+/* Style nút đóng modal */
+.close-modal {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.cart-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+.cart-header label {
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.cart-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 15px;
+}
+
+.cart-item img {
+	width: 60px;
+	height: 60px;
+	border-radius: 8px;
+	object-fit: cover;
+}
+
+.cart-item-info {
+	flex-grow: 1;
+}
+
+.cart-item-info h4 {
+	margin: 0;
+	font-size: 16px;
+	color: #333;
+}
+
+.cart-item-info p {
+	margin: 5px 0;
+	font-size: 14px;
+	color: #555;
+}
+
+.cart-item-info .price {
+	color: red;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.cart-item .quantity {
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+}
+
+.cart-footer {
+	margin-top: 15px;
+}
+
+.cart-footer button {
+	width: 100%;
+	padding: 12px;
+	font-size: 16px;
+	background-color: #f4a900;
+	color: #333;
+	font-weight: bold;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+}

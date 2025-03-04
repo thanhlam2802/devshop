@@ -1,6 +1,7 @@
 package javafive.service.implement;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,11 @@ public class ProductVariantImpl implements ProductVariantService{
 		// TODO Auto-generated method stub
 		 return daopv.findFirstAvailableColorByProductId(productId).orElse(null);
 	}
+
+	@Override
+	public Optional<ProductVariant> findVariant(Integer productId, Integer color, Integer size) {
+	    return  daopv.findVariant(productId, color, size);
+	}
+
 
 }

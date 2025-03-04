@@ -39,13 +39,13 @@ public class UserImpl implements UserServie{
 	@Override
 	public User create(User user) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.save(user);
 	}
 
 	@Override
 	public User update(User user) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.save(user);
 	}
 
 	@Override
@@ -59,6 +59,24 @@ public class UserImpl implements UserServie{
 		
 		
 		return dao.findAllCustomer();
+	}
+
+	@Override
+	public Optional<User> findByUsernameOrEmail(String identifier) {
+		// TODO Auto-generated method stub
+		return dao.findByUsernameOrEmail(identifier, identifier);
+	}
+
+	@Override
+	public Optional<User> findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return dao.findByEmail(email);
+	}
+
+	@Override
+	public Optional<User> findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return dao.findByUsername(username);
 	}
 
 	

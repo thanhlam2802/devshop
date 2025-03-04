@@ -14,11 +14,13 @@ import jakarta.servlet.http.Cookie;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
+import javafive.entity.CartItem;
 import javafive.entity.Category;
 import javafive.entity.Product;
 import javafive.service.CategoryService;
 import javafive.service.CookieService;
 import javafive.service.ProductService;
+import javafive.service.SessionService;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
@@ -32,9 +34,14 @@ public class GlobalControllerAdvice {
     @Autowired
     private ProductService productService;
     
+    @Autowired
+    private SessionService sessionService;
+    
     @ModelAttribute("categories")
     public List<Category> loadCategories() {
+  
         return categoryService.getParentCategories();
+        
     }
     
     @ModelAttribute("productViewed")
@@ -51,6 +58,14 @@ public class GlobalControllerAdvice {
 
     	return list;
     	
+    }
+    @ModelAttribute("cartCount")
+    public int getCartItemCount() {
+        List<CartItem> cart = (List<CartItem>) sessionService.get("cart");
+        if (cart == null) {
+            return 0;
+        }
+        return cart.stream().mapToInt(CartItem::getQuantity).sum();
     }
    
 }

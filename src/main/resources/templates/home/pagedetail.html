@@ -134,7 +134,31 @@
 			</div>
 		</div>
 		<div th:replace="~{/home/pageviewed}"></div>
-	
+		<!-- Checkbox để điều khiển modal -->
+		<input type="checkbox" id="cart-toggle" th:checked="${addedItem != null}" hidden>
+
+		<!-- Modal giỏ hàng -->
+		<div class="cart-modal" th:if="${addedItem != null}">
+		    <div class="cart-header">
+		        <span>Đã thêm vào giỏ</span>
+		        <label for="cart-toggle" class="close-modal">&times;</label> <!-- Nút đóng modal -->
+		    </div>
+
+		    <div class="cart-item">
+		        <img th:src="@{/photo/{image}(image=${addedItem.image})}" alt="Sản phẩm" width="60" height="60">
+		        <div class="cart-item-info">
+		            <h4 th:text="${addedItem.productName}">Tên sản phẩm</h4>
+		            <p><span style="color: blue;" th:text="${addedItem.color + ', ' + addedItem.size}">Màu, Size</span></p>
+		            <p class="price" th:text="${#numbers.formatDecimal(addedItem.price, 0, 'COMMA', 0, 'POINT') + ' đ'}">Giá</p>
+		        </div>
+		        <span class="quantity" th:text="'x' + ${addedItem.quantity}">Số lượng</span>
+		    </div>
+
+		    <div class="cart-footer">
+		        <button>Đặt hàng</button>
+		    </div>
+		</div>
+
 		
 	</div>
 

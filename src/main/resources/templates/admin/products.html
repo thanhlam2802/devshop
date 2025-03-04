@@ -1,15 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{/admin/layout::shared(~{::.content})}">
+<html lang="en" th:replace="~{/admin/layout::shared(~{::.admin-content},'Quan ly san pham',~{::link})}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
+    <title>Trang product</title>
+	<link rel="stylesheet" href="/css/order.css">
+	<link>
+	
+	<link>
 </head>
 
 <body>
-    <div class="content">
-		<h1>products</h1>
+    <div class="admin-content">
+		<h1>Danh sách sản phẩm</h1>
+		    <a href="/devshop/admin/product/create">Thêm sản phẩm</a>
+		    <table border="1">
+		        <thead>
+		            <tr>
+		                <th>ID</th>
+		                <th>Tên</th>
+		                <th>Giá</th>
+		                <th>Hình ảnh</th>
+		                <th>Hành động</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="product : ${products}">
+		                <td th:text="${product.product_id}"></td>
+		                <td th:text="${product.name}"></td>
+		                <td th:text="${product.price}"></td>
+		                <td><img th:src="@{${product.mainImage}}" width="50"></td>
+		                <td>
+		                    <a th:href="@{/admin/products/edit/{id}(id=${product.product_id})}">Sửa</a>
+		                    <a th:href="@{/admin/products/delete/{id}(id=${product.product_id})}" onclick="return confirm('Xóa sản phẩm này?');">Xóa</a>
+		                </td>
+		            </tr>
+		        </tbody>
+		    </table>
+			<div class="pagination">
+			    <a th:href="@{/devshop/admin/product(page=0)}" th:if="${currentPage > 0}">Trang đầu</a>
+			    <a th:href="@{/devshop/admin/product(page=${currentPage - 1})}" th:if="${currentPage > 0}">Trang trước</a>
+
+			    <span>Trang <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span></span>
+
+			    <a th:href="@{/devshop/admin/product(page=${currentPage + 1})}" th:if="${currentPage + 1 < totalPages}">Trang sau</a>
+			    <a th:href="@{/devshop/admin/product(page=${totalPages - 1})}" th:if="${currentPage + 1 < totalPages}">Trang cuối</a>
+			</div>
+
 	</div>
 </body>
 

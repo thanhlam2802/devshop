@@ -38,13 +38,13 @@ public class LoginController {
 
 	@RequestMapping("/cookie/login/check")
 	public String loginCheck(HttpSession session, Model model, 
-	                         @RequestParam("username") String username,
+	                         @RequestParam("identifier") String identifier,
 	                         @RequestParam("password") String password,
 	                         @RequestParam(name = "remember", defaultValue = "false") boolean remember) {
 
-	    Optional<User> user = userService.findById(username);
+	    Optional<User> user = userService.findByUsernameOrEmail(identifier);
 	    if (user.isEmpty()) {
-	        model.addAttribute("msg", "Invalid username!");
+	        model.addAttribute("msg", "Invalid username or email!");
 	        return "/home/login";
 	    } else if (!user.get().getPassword().equals(password)) {
 	        model.addAttribute("msg", "Invalid password!");
@@ -54,7 +54,7 @@ public class LoginController {
 	        sessionService.set("currentUser", user.get()); 
 
 	        if (remember) {
-	            cookieService.create("un", username, 30 * 24 * 60 * 60);
+	            cookieService.create("un", identifier, 30 * 24 * 60 * 60);
 	            cookieService.create("pw", password, 30 * 24 * 60 * 60);
 	        } else {
 	            cookieService.delete("un");

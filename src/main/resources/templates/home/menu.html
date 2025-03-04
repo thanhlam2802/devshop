@@ -39,11 +39,10 @@
 	</div>
 	<div class="col-auto">
 		<div class="d-flex gap-3">
-			<a href="#" class="text-dark" title="Search">
-				<i class="bi bi-search"></i>
-			</a>
-			<a href="/cart/show" class="text-dark" title="Cart">
-				<i class="bi bi-cart"></i>
+
+			<a href="/cart/show" class="text-dark position-relative" title="Cart">
+			    <i class="bi bi-cart"></i>
+			    <span class="cart-badge" th:if="${cartCount > 0}" th:text="${cartCount}"></span>
 			</a>
 			<th:block th:if="${session.currentUser == null}">
 			       <a href="/devshop/home/login" class="text-dark" title="Profile">

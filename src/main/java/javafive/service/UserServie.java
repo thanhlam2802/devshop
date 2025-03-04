@@ -18,6 +18,7 @@ public interface UserServie {
     User create(User user); 
     User update(User user); 
     Page<User> findUsersWithLimit(int size);
-
-	
+    Optional<User> findByUsernameOrEmail(String identifier);
+    Optional<User> findByEmail(String email);
+    Optional<User> findByUsername(String username);
 }

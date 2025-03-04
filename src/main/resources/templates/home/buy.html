@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/home/layout::shared(~{::.content},~{::link})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Đặt Hàng</title>
+	<link rel="stylesheet" href="/css/buy.css">
+</head>
+
+<body>
+	<div class="content">
+		<div class="container-buy">
+			<!-- Cột nhập thông tin người nhận -->
+			<div class="col-5-buy">
+				<h1>Người nhận</h1>
+				<form action="/devshop/order/submit" method="post">
+				    <div class="group-buy">
+				        <div class="input-group">
+				            <input type="text" name="customerName" placeholder="Tên khách hàng"
+				                th:value="${userName}" readonly required>
+				        </div>
+				        <div class="input-group">
+				            <input type="text" name="customerPhone" placeholder="Số điện thoại"
+				                th:value="${userPhone}" readonly required>
+				        </div>
+						<div th:if="${errorMessage}" style="color: red; font-weight: bold;">
+						    <p th:text="${errorMessage}"></p>
+						</div>
+
+				        <div class="input-group">
+				            <input type="text" name="customerAddress" placeholder="Địa chỉ"
+				                th:value="${userAddress}" required>
+				        </div>
+				    </div>
+				    <h2>Phương thức vận chuyển</h2>
+				    <div class="shipping-option">
+				        <input type="radio" name="shippingMethod" value="standard" checked> Tiêu chuẩn
+				        <p>Đảm bảo nhận hàng từ 3 - 5 ngày</p>
+				    </div>
+				    <h2>Phương thức thanh toán</h2>
+				    <div class="payment-method">
+				        <input type="radio" name="paymentMethod" value="cash" checked> Tiền mặt
+				        <input type="radio" name="paymentMethod" value="bank"> Chuyển khoản
+				    </div>
+				    <button type="submit">Đặt hàng</button>
+				</form>
+			</div>
+
+			<!-- Cột hiển thị danh sách sản phẩm đã chọn -->
+			<div class="col-5-buy">
+				<h2>Thông tin sản phẩm</h2>
+				<div class="product-item" th:each="item : ${cartItems}">
+					<img th:src="@{/photo/{image}(image=${item.image})}" alt="Sản phẩm">
+					<div class="product-info">
+						<div class="product-name" th:text="${item.productName}"></div>
+						<div th:text="${item.color + ', ' + item.size}"></div>
+						<div class="product-price">
+							<span th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+							
+						</div>
+					</div>
+					<div th:text="'x' + ${item.quantity}"></div>
+				</div>
+
+				<!-- Hiển thị tổng tiền -->
+				<div class="summary">
+					<div class="summary-item">
+						<span>Tổng giá trị sản phẩm</span>
+						<span th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![price * quantity]), 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+					</div>
+					<div class="summary-item">
+						<span>Vận chuyển</span>
+						<span>20.000 đ</span>
+					</div>
+					<div class="summary-item">
+						<span>Giảm giá vận chuyển</span>
+						<span style="color: red;">-20.000 đ</span>
+					</div>
+					<div class="summary-item">
+						<span class="total-price">Tổng thanh toán</span>
+						<span class="total-price"
+							th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![price * quantity]), 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

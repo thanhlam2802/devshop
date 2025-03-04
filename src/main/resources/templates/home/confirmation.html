@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi" th:replace="~{/home/layout::shared(~{::.content},~{::link})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng</title>
+    <link rel="stylesheet" href="/css/comfirmation.css">
+</head>
+
+<body>
+    <div class="content">
+        <div class="container-order">
+            <h1>Đơn Hàng Của Tôi</h1>
+
+            <!-- Tabs: Điều hướng -->
+            <div class="tabs">
+				<a th:href="@{/devshop/order/confirmation?(status='PENDING')}" class="tab-link"
+				   th:classappend="${activeTab == 'PENDING'} ? 'active'">Chờ xác nhận</a>
+
+                <a th:href="@{/devshop/order/confirmation?(status='CONFIRMED')}" class="tab-link"
+                   th:classappend="${activeTab == 'CONFIRMED'} ? 'active'">Đang giao</a>
+
+                <a th:href="@{/devshop/order/confirmation?(status='SHIPPED')}" class="tab-link"
+                   th:classappend="${activeTab == 'SHIPPED'} ? 'active'">Giao thành công</a>
+
+                <a th:href="@{/devshop/order/confirmation?(status='CANCELLED')}" class="tab-link"
+                   th:classappend="${activeTab == 'CANCELLED'} ? 'active'">Đã hủy</a>
+            </div>
+
+            <!-- Tab 1: Chờ xác nhận -->
+            <div th:if="${activeTab == 'PENDING'}">
+                <h2>Đơn hàng chờ xác nhận</h2>
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Ngày đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td th:text="${order.id}"></td>
+							<td th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                            <td class="status pending">Chờ xác nhận</td>
+                            <td><a th:href="@{/devshop/order/confirmation/details(id=${order.id})}" class="detail-btn">Xem</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab 2: Đang giao -->
+            <div th:if="${activeTab == 'CONFIRMED'}">
+                <h2>Đơn hàng đang giao</h2>
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Ngày đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td th:text="${order.id}"></td>
+							<td th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                            <td class="status confirmed">Đang giao</td>
+                            <td><a th:href="@{/devshop/order/confirmation/details(id=${order.id})}" class="detail-btn">Xem</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab 3: Giao thành công -->
+            <div th:if="${activeTab == 'SHIPPED'}">
+                <h2>Đơn hàng giao thành công</h2>
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Ngày đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td th:text="${order.id}"></td>
+							<td th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                            <td class="status success">Giao thành công</td>
+                            <td><a th:href="@{/devshop/order/confirmation/details(id=${order.id})}" class="detail-btn">Xem</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab 4: Đã hủy -->
+            <div th:if="${activeTab == 'CANCELLED'}">
+                <h2>Đơn hàng đã hủy</h2>
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Ngày đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td th:text="${order.id}"></td>
+							<td th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                            <td class="status cancelled">Đã hủy</td>
+                            <td><a th:href="@{/devshop/order/confirmation/details(id=${order.id})}" class="detail-btn">Xem</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Chi tiết đơn hàng -->
+            <div th:if="${activeTab == 'details' && selectedOrder != null}">
+                <h2>Chi tiết đơn hàng</h2>
+                <div class="order-info">
+                    <p><strong>Mã đơn hàng:</strong> <span th:text="${selectedOrder.id}"></span></p>
+                    <p><strong>Ngày đặt:</strong> <span th:text="${#temporals.format(selectedOrder.createdAt, 'dd/MM/yyyy')}"></span></p>
+                    <p><strong>Địa chỉ giao hàng:</strong> <span th:text="${selectedOrder.shippingAddress}"></span></p>
+                    <p><strong>Phương thức thanh toán:</strong> <span th:text="${selectedOrder.paymentMethod}"></span></p>
+                    <p><strong>Trạng thái:</strong> <span class="status" th:text="${selectedOrder.status}"></span></p>
+
+                    <h3>Sản phẩm trong đơn</h3>
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <th>Hình ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Màu sắc</th>
+                                <th>Kích thước</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${orderDetails}">
+                                <td><img th:src="@{/photo/{image}(image=${item.productVariant.product.mainImage})}" alt="Sản phẩm"></td>
+                                <td th:text="${item.productVariant.product.name}"></td>
+                                <td th:text="${item.productVariant.color.name}"></td>
+                                <td th:text="${item.productVariant.size.size}"></td>
+                                <td th:text="${item.quantity}"></td>
+                                <td th:text="${#numbers.formatDecimal(item.productVariant.product.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3>Tổng thanh toán: <span th:text="${#numbers.formatDecimal(selectedOrder.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

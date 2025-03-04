@@ -27,6 +27,7 @@ public class HomeController {
     
 	@Autowired
 	ProductService productService;
+	
     @RequestMapping("/devshop/page/index")
     public String home(Model model, HttpServletRequest request) {
         
@@ -37,7 +38,7 @@ public class HomeController {
         showBanner(request, model);
         Page <Product> listall = productService.getAllProductsPageAndSort(number);
         model.addAttribute("listallproduct", listall);
-        return "/home/index";
+        return "home/index";
     }
     
     
@@ -57,7 +58,7 @@ public class HomeController {
 
     @RequestMapping("/devshop/home/tin")
     public String news(Model model) {
-        return "/home/pageviewed";
+        return "home/pageviewed";
     }
     @RequestMapping("/devshop/home/login")
     public String login(Model model) {
@@ -74,10 +75,10 @@ public class HomeController {
         
         model.addAttribute("cart", cart);
         if (cart.isEmpty()) {
-            return "/home/cartnull";
+            return "home/cartnull";
         }
         
-        return "/home/cart";
+        return "home/cart";
     }
 
 

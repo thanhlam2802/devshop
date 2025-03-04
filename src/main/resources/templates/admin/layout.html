@@ -130,6 +130,11 @@
         align-items: center;
 
     }
+.rounded-circle{
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+}
 </style>
 
 <body>
@@ -139,10 +144,17 @@
             <header class="topbar">
 				<h1 class="title" th:text="${y}"></h1>
 
-                <div class="user">
-                    <div class="avt"></div>
-                    <div class="user-info">Admin devnhaque</div>
-                </div>
+              
+				<th:block th:if="${session.currentUser != null}">
+						       <div class="user-menu">
+						           <!-- Avatar: Chuyển đến trang cá nhân -->
+						           <a href="/devshop/home/profile" class="avt">
+						               <img th:src="@{|/photo/${session.currentUser.photo}|}" alt="User Avatar" class="rounded-circle avatar">
+						           </a>
+
+						           <a href="/devshop/home/logout" class="user-info">Đăng xuất</a>
+						       </div>
+			 </th:block>
 
             </header>
             <section class="dashboard">

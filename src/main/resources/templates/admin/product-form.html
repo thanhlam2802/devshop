@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/admin/layout::shared(~{::.admin-content},'them san pham',~{::link})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang product</title>
+	<link rel="stylesheet" href="/css/order.css">
+	<link>
+	
+	<link>
+</head>
+
+<body>
+    <div class="admin-content">
+
+		<h2>Thêm sản phẩm</h2>
+
+		        <form th:action="@{/devshop/admin/product/save}" th:object="${product}" method="post" enctype="multipart/form-data">
+		            <input type="hidden" th:field="*{product_id}">
+		            
+		            <label for="name">Tên sản phẩm:</label>
+		            <input type="text" id="name" th:field="*{name}" required>
+
+		            <label for="price">Giá:</label>
+		            <input type="number" id="price" th:field="*{price}" required>
+
+					<label for="imageFile">Hình ảnh:</label>
+					<input type="file" id="imageFile" name="imageFile" accept="image/*">
+
+					<!-- Giữ đường dẫn ảnh cũ để hiển thị khi chỉnh sửa -->
+					<input type="hidden" id="mainImage" th:field="*{mainImage}">
+
+					<img th:if="*{mainImage}" th:src="*{mainImage}" alt="Ảnh sản phẩm" width="100">
+
+
+		            <label for="category">Loại sản phẩm:</label>
+		            <select id="category"  required>
+		                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+		            </select>
+
+		            <label for="description">Mô tả sản phẩm:</label>
+		            <textarea id="description" th:field="*{description}" rows="4"></textarea>
+
+		            <button type="submit">Lưu sản phẩm</button>
+		        </form>
+
+		        <a href="/devshop/admin/product">Quay lại danh sách</a>
+		    </div>
+</body>
+
+</html>

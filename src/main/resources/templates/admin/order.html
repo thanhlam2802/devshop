@@ -33,56 +33,43 @@
 	               <input type="text" class="admin-input" id="search" placeholder="Tìm kiếm đơn hàng...">
 	           </div>
 	       </div>
-	       <table>
-	           <thead>
-	               <tr>
-	                   <th>STT</th>
-	                   <th>Mã đơn</th>
-	                   <th>Họ và tên</th>
-	                   <th>Tổng đơn hàng</th>
-	                   <th>Hình thức mua</th>
-	                   <th>Ngày đặt</th>
-	                   <th>Địa chỉ</th>
-	                   <th>Tình trạng đơn hàng</th>
-	               </tr>
-	           </thead>
-	           <tbody>
-	               <tr>
-	                   <td>1</td>
-	                   <td>ĐH001</td>
-	                   <td>Nguyễn Văn A</td>
-	                   <td>1.000.000 VNĐ</td>
-	                   <td>Trực tuyến</td>
-	                   <td>2022-01-01</td>
-	                   <td>123 Nguyễn Văn Cừ, Q.1, TP.HCM</td>
-	                   <td>
-	                       <select class="order-status">
-	                           <option value="Đã giao hàng">Đã giao hàng</option>
-	                           <option value="Đang giao hàng">Đang giao hàng</option>
-	                           <option value="Đã hủy">Đã hủy</option>
-	                       </select>
-	                   </td>
-	                   
-	               </tr>
-	               <tr>
-	                   <td>2</td>
-	                   <td>ĐH002</td>
-	                   <td>Nguyễn Thị B</td>
-	                   <td>500.000 VNĐ</td>
-	                   <td>Trực tuyến</td>
-	                   <td>2022-01-05</td>
-	                   <td>456 Lê Thánh Tôn, Q.1, TP.HCM</td>
-	                   <td>
-	                       <select class="order-status">
-	                           <option value="Đã giao hàng">Đã giao hàng</option>
-	                           <option value="Đang giao hàng">Đang giao hàng</option>
-	                           <option value="Đã hủy">Đã hủy</option>
-	                       </select>
-	                   </td>
-	                   
-	               </tr>
-	           </tbody>
-	       </table>
+		   <table>
+		       <thead>
+		           <tr>
+		               <th>ID</th>
+		               <th>Khách hàng</th>
+		               <th>Tổng tiền</th>
+		               <th>Thanh toán</th>
+		               <th>Ngày tạo</th>
+		               <th>Địa chỉ giao hàng</th>
+		               <th>Trạng thái</th>
+		              
+		           </tr>
+		       </thead>
+		       <tbody>
+		           <tr th:each="order : ${orders}">
+		               <td th:text="${order.id}"></td>
+		               <td th:text="${order.user.fullname}"></td>
+		               <td th:text="${order.totalPrice}"></td>
+		               <td th:text="${order.paymentMethod}"></td>
+		               <td th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy')}"></td>
+		               <td th:text="${order.shippingAddress}"></td>
+		               <td>
+		                   <!-- Form cập nhật trạng thái -->
+		                   <form th:action="@{/admin/order/update-status}" method="post">
+		                       <input type="hidden" name="orderId" th:value="${order.id}"/>
+		                       <select class="order-status" name="status" onchange="this.form.submit()">
+		                           <option th:each="status : ${T(javafive.entity.OrderStatus).values()}"
+		                                   th:value="${status}"
+		                                   th:text="${status}"
+		                                   th:selected="${status.name() == order.status.name()}">
+		                           </option>
+		                       </select>
+		                   </form>
+		               </td>
+		           </tr>
+		       </tbody>
+		   </table>
 	   </div></body>
 
 </html>

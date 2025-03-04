@@ -23,4 +23,12 @@ public class ColorImpl implements ColorService{
 		return colordao.findById(colorid);
 	}
 
+
+
+	@Override
+	public Optional<Color> findByName(String name) {
+		// TODO Auto-generated method stub
+		return colordao.findByName(name);
+	}
+
 }

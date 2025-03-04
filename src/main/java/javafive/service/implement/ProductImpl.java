@@ -80,6 +80,11 @@ public class ProductImpl implements ProductService{
 		
 		return daop.findAllById(id);
 	}
+
+	@Override
+	public void deleteProductById(Integer id) {
+		daop.deleteById(id);		
+	}
 	
 	
 

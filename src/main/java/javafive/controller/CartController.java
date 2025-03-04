@@ -52,46 +52,50 @@ public class CartController {
                 break;
             }
         }
-
         
         sessionService.set("cart", cart);
         
         return "redirect:/cart/show";
     }
 
-    @PostMapping("/add")
-    public String addToCart(@RequestParam Integer productId,
-                            @RequestParam String productName,
-                            @RequestParam Integer color,
-                            @RequestParam String size,
-                            @RequestParam Double price,
-                            @RequestParam Integer quantity,
-                            @RequestParam String image,
-                            HttpSession session,
-                            RedirectAttributes redirectAttributes) {
-    	
-        List<CartItem> cart = (List<CartItem>) sessionService.get("cart");
-        if (cart == null) {
-            cart = new ArrayList<>();
-            sessionService.set("cart", cart);
-        }
+	@PostMapping("/add")
+	public String addToCart(@RequestParam Integer productId,
+	                        @RequestParam String productName,
+	                        @RequestParam Integer color,
+	                        @RequestParam String size,
+	                        @RequestParam Double price,
+	                        @RequestParam Integer quantity,
+	                        @RequestParam String image,
+	                        HttpSession session,
+	                        RedirectAttributes redirectAttributes) {
+	    
+	    List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+	    if (cart == null) {
+	        cart = new ArrayList<>();
+	        session.setAttribute("cart", cart);
+	    }
 
-        for (CartItem item : cart) {
-            if (item.getProducID().equals(productId)) {
-                item.setQuantity(item.getQuantity() + quantity);
-                redirectAttributes.addFlashAttribute("successMessage", "Cập nhật số lượng sản phẩm thành công!");
-                return "redirect:/devshop/product/" + productId;
-            }
-        }
-        String nameColor= colorService.getColorById(color).get().getName();
-        
-        User user = sessionService.get("currentUser");
-        String userId =  user.getUsername();
-        
-        cart.add(new CartItem(userId,productId, productName, nameColor, size, price, quantity, image));
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm sản phẩm vào giỏ hàng thành công!");
-        return "redirect:/devshop/product/" + productId;
-    }
+	    for (CartItem item : cart) {
+	        if (item.getProducID().equals(productId) && item.getColor().equals(color) && item.getSize().equals(size)) {
+	            item.setQuantity(item.getQuantity() + quantity);
+	            redirectAttributes.addFlashAttribute("addedItem", item);
+	            return "redirect:/devshop/product/" + productId;
+	        }
+	    }
+
+	   
+	    String nameColor = colorService.getColorById(color).get().getName();
+	
+	    User user = (User) session.getAttribute("currentUser");
+	    String userId = user.getUsername();
+
+	
+	    CartItem newItem = new CartItem(userId, productId, productName, nameColor, size, price, quantity, image);
+	    cart.add(newItem);
+
+	    redirectAttributes.addFlashAttribute("addedItem", newItem);
+	    return "redirect:/devshop/product/" + productId;
+	}
 
     
     @PostMapping("/remove")

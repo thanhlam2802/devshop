@@ -13,7 +13,7 @@ import javafive.entity.Category;
 import javafive.entity.Product;
 
 
-@Service
+
 public interface ProductService {
 
 	List<Product> getAllProducts();
@@ -28,7 +28,7 @@ public interface ProductService {
 	List<Product> getProductByIdList(List<Integer>  id);
     Product saveOrUpdateProduct(Product product);
 
- 
+     void deleteProductById(Integer id);
 
     List<Product> searchProductsByName(String name);
 }

@@ -1,0 +1,110 @@
+.container-order {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    padding: 12px 18px;
+    margin: 0 8px;
+    text-decoration: none;
+    border: none;
+    background: #f1f1f1;
+    font-size: 16px;
+    border-radius: 8px;
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+}
+
+.tab-link:hover {
+    background: #ff787d;
+    color: white;
+}
+
+.tab-link.active {
+    background: #ff5a5f;
+    color: white;
+    font-weight: bold;
+}
+
+.order-table, .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-table th, .order-table td,
+.product-table th, .product-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.order-table th, .product-table th {
+    background: #ff5a5f;
+    color: white;
+}
+
+.order-table tr:nth-child(even),
+.product-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.status.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status.cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.detail-btn {
+    background-color: #ff5a5f;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.detail-btn:hover {
+    background-color: #e04a4f;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}

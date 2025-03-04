@@ -1,0 +1,119 @@
+.container-buy {
+           width: 100%;
+           display: flex;
+           gap: 20px;
+           background: #fff;
+           padding: 20px;
+
+
+       }
+
+       .col-5-buy {
+           flex: 1;
+       }
+
+       h1,
+       h2 {
+           margin-bottom: 15px;
+           color: #333;
+       }
+
+       .group-buy {
+           display: flex;
+           flex-direction: column;
+           gap: 10px;
+           margin-bottom: 20px;
+       }
+
+       .input-group input {
+           width: 100%;
+           padding: 12px;
+           border: 1px solid #ccc;
+           border-radius: 5px;
+           font-size: 16px;
+       }
+
+       .shipping-option,
+       .payment-method {
+           display: flex;
+           flex-direction: column;
+           gap: 10px;
+           padding: 15px;
+           border: 1px solid #ddd;
+           border-radius: 5px;
+           background: #f9f9f9;
+       }
+
+       .shipping-option p {
+           margin: 0;
+           font-size: 14px;
+           color: #555;
+       }
+
+       button {
+           margin-top: 10px;
+           background-color: #f4a900;
+           color: white;
+           border: none;
+           padding: 12px;
+           border-radius: 5px;
+           cursor: pointer;
+           width: 100%;
+           font-size: 16px;
+       }
+
+       button:hover {
+           background-color: #e69500;
+       }
+
+       .product-item {
+           display: flex;
+           align-items: center;
+           gap: 10px;
+           margin-bottom: 15px;
+       }
+
+       .product-item img {
+           width: 60px;
+           height: 60px;
+           border-radius: 5px;
+       }
+
+       .product-info {
+           flex: 1;
+       }
+
+       .product-name {
+           font-size: 14px;
+           font-weight: bold;
+       }
+
+       .product-price {
+           font-size: 14px;
+           color: red;
+       }
+
+       .old-price {
+           text-decoration: line-through;
+           color: gray;
+           font-size: 12px;
+       }
+
+       .summary {
+           margin-top: 20px;
+           padding-top: 10px;
+           border-top: 1px solid #ddd;
+       }
+
+       .summary-item {
+           display: flex;
+           justify-content: space-between;
+           margin-bottom: 10px;
+           font-size: 14px;
+       }
+
+       .total-price {
+           font-size: 18px;
+           font-weight: bold;
+           color: red;
+       }

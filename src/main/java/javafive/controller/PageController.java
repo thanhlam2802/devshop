@@ -52,7 +52,7 @@ public class PageController {
 	        model.addAttribute("listbyCategory", listbyCategory);
 	        System.out.print(sort);
 	        model.addAttribute("category",category);
-	        return "/home/page";
+	        return "home/page";
 	    }
 	 @RequestMapping("/devshop/product/{product_id}")
 	 public String pageDetail(Model model, @PathVariable("product_id") Integer productId,
@@ -79,7 +79,7 @@ public class PageController {
 	     model.addAttribute("product", product);
 	     model.addAttribute("listProductVariant", list);
 	     model.addAttribute("selectedColor", index);
-	     return "/home/pagedetail";
+	     return "home/pagedetail";
 	 }
 
 }
