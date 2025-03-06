@@ -5,10 +5,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
+import java5.hoc.Const;
 import javafive.entity.User;
 import javafive.service.CookieService;
 import javafive.service.SessionService;
@@ -36,7 +39,7 @@ public class LoginController {
 		return "/home/login";
 	}
 
-	@RequestMapping("/cookie/login/check")
+	@PostMapping(value = "/cookie/login/check")
 	public String loginCheck(HttpSession session, Model model, 
 	                         @RequestParam("identifier") String identifier,
 	                         @RequestParam("password") String password,
@@ -46,31 +49,42 @@ public class LoginController {
 	    if (user.isEmpty()) {
 	        model.addAttribute("msg", "Invalid username or email!");
 	        return "/home/login";
-	    } else if (!user.get().getPassword().equals(password)) {
+	    } 
+	    if (!user.get().getPassword().equals(password)) {
 	        model.addAttribute("msg", "Invalid password!");
 	        return "/home/login";
+	    }
+
+
+	    sessionService.set("currentUser", user.get()); 
+	    model.addAttribute("msg", "Login successfully!");
+
+	  
+	    if (remember) {
+	        cookieService.create("un", identifier, 30 * 24 * 60 * 60);
+	        cookieService.create("pw", password, 30 * 24 * 60 * 60);
 	    } else {
-	        model.addAttribute("msg", "Login successfully!");
-	        sessionService.set("currentUser", user.get()); 
+	        cookieService.delete("un");
+	        cookieService.delete("pw");
+	    }
 
-	        if (remember) {
-	            cookieService.create("un", identifier, 30 * 24 * 60 * 60);
-	            cookieService.create("pw", password, 30 * 24 * 60 * 60);
-	        } else {
-	            cookieService.delete("un");
-	            cookieService.delete("pw");
-	        }
+	  
+	    String prevPage = (String) session.getAttribute(Const.SECAURED);
+	    session.removeAttribute(Const.SECAURED); 
 
-	        String role = user.get().getAuthorities().stream()
-	                 .map(auth -> auth.getRole().getId()) 
-	                 .findFirst()
-	                 .orElse("CUSTOMER"); 
+	    if (prevPage != null && !prevPage.contains("/login")) { 
+	        return "redirect:" + prevPage;
+	    }
 
-	        if ("ADMIN".equalsIgnoreCase(role)) {
-	            return "redirect:/devshop/admin/index"; 
-	        } else {
-	            return "redirect:/devshop/page/index"; 
-	        }
+	    String role = user.get().getAuthorities().stream()
+	             .map(auth -> auth.getRole().getId()) 
+	             .findFirst()
+	             .orElse("CUSTOMER"); 
+
+	    if ("ADMIN".equalsIgnoreCase(role)) {
+	        return "redirect:/devshop/admin/index"; 
+	    } else {
+	        return "redirect:/devshop/page/index"; 
 	    }
 	}
 
