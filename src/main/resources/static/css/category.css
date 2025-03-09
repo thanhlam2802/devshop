@@ -1,0 +1,55 @@
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-subcategory {
+    background-color: #28a745;
+    color: white;
+}
+
+.edit {
+    background-color: #007bff;
+    color: white;
+}
+
+.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
