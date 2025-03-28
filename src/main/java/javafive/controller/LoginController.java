@@ -1,5 +1,6 @@
 package javafive.controller;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,10 +77,13 @@ public class LoginController {
 	        return "redirect:" + prevPage;
 	    }
 
-	    String role = user.get().getAuthorities().stream()
-	             .map(auth -> auth.getRole().getId()) 
-	             .findFirst()
-	             .orElse("CUSTOMER"); 
+	    String role = Optional.ofNullable(user.get().getAuthorities())
+	            .orElse(Collections.emptyList())  // Nếu null, trả về danh sách rỗng
+	            .stream()
+	            .map(auth -> auth.getRole().getId())
+	            .findFirst()
+	            .orElse("CUSTOMER");
+ 
 
 	    if ("ADMIN".equalsIgnoreCase(role)) {
 	        return "redirect:/devshop/admin/index"; 
