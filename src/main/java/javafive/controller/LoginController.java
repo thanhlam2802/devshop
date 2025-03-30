@@ -20,6 +20,8 @@ import javafive.service.UserServie;
 
 @Controller
 public class LoginController {
+	private static final int MAX_FAILED_ATTEMPTS = 5;
+	
 	@Autowired
 	CookieService cookieService;
 	@Autowired
@@ -37,6 +39,7 @@ public class LoginController {
 	@RequestMapping("/devshop/home/logout")
 	public String logoutForm(HttpSession session) {
 		sessionService.remove("currentUser");
+		 sessionService.remove("failedAttempts");
 		return "/home/login";
 	}
 
@@ -51,13 +54,24 @@ public class LoginController {
 	        model.addAttribute("msg", "Invalid username or email!");
 	        return "/home/login";
 	    } 
-	    if (!user.get().getPassword().equals(password)) {
-	        model.addAttribute("msg", "Invalid password!");
-	        return "/home/login";
-	    }
+	    
+	    Integer failedAttempts = (Integer) sessionService.get("failedAttempts");
+        failedAttempts = (failedAttempts == null) ? 0 : failedAttempts;
 
+       
+        if (failedAttempts >= MAX_FAILED_ATTEMPTS) {
+            model.addAttribute("msg", "Tài khoản của bạn đã bị khóa do nhập sai quá nhiều lần!");
+            return "/home/login";
+        }
+	    if (!user.get().getPassword().equalsIgnoreCase(password)) {
+	        model.addAttribute("msg", "Invalid password!");
+	        return handleFailedLogin(session, model, identifier);
+	       
+	    }
+	   
 
 	    sessionService.set("currentUser", user.get()); 
+	    sessionService.remove("failedAttempts");
 	    model.addAttribute("msg", "Login successfully!");
 
 	  
@@ -78,7 +92,7 @@ public class LoginController {
 	    }
 
 	    String role = Optional.ofNullable(user.get().getAuthorities())
-	            .orElse(Collections.emptyList())  // Nếu null, trả về danh sách rỗng
+	            .orElse(Collections.emptyList())
 	            .stream()
 	            .map(auth -> auth.getRole().getId())
 	            .findFirst()
@@ -91,6 +105,17 @@ public class LoginController {
 	        return "redirect:/devshop/page/index"; 
 	    }
 	}
+	private String handleFailedLogin(HttpSession session, Model model, String identifier) {
+        Integer failedAttempts = (Integer) sessionService.get("failedAttempts");
+        failedAttempts = (failedAttempts == null) ? 1 : failedAttempts + 1;
+
+        sessionService.set("failedAttempts", failedAttempts);
+       System.out.print(failedAttempts);
+        if (failedAttempts >= MAX_FAILED_ATTEMPTS) {
+            model.addAttribute("msg", "Tài khoản của bạn đã bị khóa do nhập sai quá nhiều lần!");
+        }
+        return "/home/login";
+    }
 
 	
 }

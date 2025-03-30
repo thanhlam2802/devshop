@@ -19,7 +19,7 @@ public class LogInterceptor implements HandlerInterceptor{
 
     
         if (user == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect("/cookie/login/form");
             return false;
         }
 

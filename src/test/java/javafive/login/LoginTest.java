@@ -120,7 +120,7 @@ class LoginTest {
         assertEquals("/home/login", view);
     }
     @Test
-    void UT_LOGIN_08_RememberMe_With_Invalid_Credentials() {
+    void UT_LOGIN_09_RememberMe_With_Invalid_Credentials() {
         when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.empty());
 
         String view = loginController.loginCheck(session, model, "user01", "wrongpassword", true);
@@ -130,7 +130,7 @@ class LoginTest {
         assertEquals("/home/login", view);
     }
     @Test
-    void UT_LOGIN_09_Success_Uppercase_Username() {
+    void UT_LOGIN_011_Success_Uppercase_Username() {
         when(userService.findByUsernameOrEmail("USER01")).thenReturn(Optional.of(mockUser));
 
         String view = loginController.loginCheck(session, model, "USER01", "pass123", true);
@@ -138,7 +138,51 @@ class LoginTest {
         verify(sessionService).set("currentUser", mockUser);
         assertEquals("redirect:/devshop/page/index", view);
     }
+    
+    @Test
+    void UT_LOGIN_012_Success_Uppercase_Password() {
+    	
+        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
 
+        String view = loginController.loginCheck(session, model, "user01", "PASS123", true);
+
+        verify(sessionService).set("currentUser", mockUser);
+        assertEquals("redirect:/devshop/page/index", view);
+    }
+
+
+    @Test
+    void UT_LOGIN_13_Fail_Too_Many_Attempts_Lock_Account() {
+        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+        when(sessionService.get("failedAttempts")).thenReturn(5);
+
+        String view = loginController.loginCheck(session, model, "user01", "wrongpassword", false);
+
+        verify(model).addAttribute("msg", "Tài khoản của bạn đã bị khóa do nhập sai quá nhiều lần!");        assertEquals("/home/login", view);
+    }
+
+    @Test
+    void UT_LOGIN_14_Fail_Too_Many_Attempts_Still_Locked() {
+        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+        when(sessionService.get("failedAttempts")).thenReturn(6); 
+
+        String view = loginController.loginCheck(session, model, "user01", "pass123", false);
+
+        verify(model).addAttribute("msg", "Tài khoản của bạn đã bị khóa do nhập sai quá nhiều lần!");
+        assertEquals("/home/login", view);
+    }
+
+    @Test
+    void UT_LOGIN_15_Success_Reset_Attempts_After_Login() {
+        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+        when(sessionService.get("failedAttempts")).thenReturn(4); 
+
+        String view = loginController.loginCheck(session, model, "user01", "pass123", false);
+
+        verify(sessionService).remove("failedAttempts"); 
+        verify(sessionService).set("currentUser", mockUser);
+        assertEquals("redirect:/devshop/page/index", view);
+    }
 
 
 

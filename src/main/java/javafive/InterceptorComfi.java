@@ -15,6 +15,6 @@ public class InterceptorComfi implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/cart/**", "/devshop/profile/**", "/order/**", "/devshop/admin/**")
-                .excludePathPatterns("/login", "/register"); 
+                .excludePathPatterns("/cookie/login/form", "/register"); 
     }
 }

@@ -8,6 +8,8 @@ import javafive.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import jakarta.validation.Valid;
+
 
 @Service
 public interface UserServie {
@@ -21,4 +23,6 @@ public interface UserServie {
     Optional<User> findByUsernameOrEmail(String identifier);
     Optional<User> findByEmail(String email);
     Optional<User> findByUsername(String username);
+	
+    
 }
