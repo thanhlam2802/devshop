@@ -21,4 +21,10 @@ public class Color {
 
     @Column(name = "hex_code", length = 7)
     private String hexCode;
+    @Builder
+    public Color(Integer color_id, String name) {
+        this.color_id = color_id;
+        this.name = name;
+    }
+
 }

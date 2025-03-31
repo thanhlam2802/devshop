@@ -39,6 +39,7 @@ public class LoginController {
 	@RequestMapping("/devshop/home/logout")
 	public String logoutForm(HttpSession session) {
 		sessionService.remove("currentUser");
+		session.removeAttribute("cart");
 		 sessionService.remove("failedAttempts");
 		return "/home/login";
 	}

@@ -84,14 +84,31 @@ public class CartController {
 	    }
 
 	   
-	    String nameColor = colorService.getColorById(color).get().getName();
+	    Optional<Color> colorOpt = colorService.getColorById(color);
+	    if (colorOpt.isEmpty()) {
+	        redirectAttributes.addFlashAttribute("error", "Màu sản phẩm không tồn tại!");
+	        return "redirect:/devshop/product/" + productId;
+	    }
+	    String nameColor = colorOpt.get().getName();
+
 	
 	    User user = (User) session.getAttribute("currentUser");
 	    String userId = user.getUsername();
 
-	
+	 
+	    for (CartItem item : cart) {
+	        if (item.getProducID().equals(productId) && item.getColor().equals(nameColor) && item.getSize().equals(size)) {
+	            item.setQuantity(item.getQuantity() + quantity);
+	            session.setAttribute("cart", cart); 
+	            redirectAttributes.addFlashAttribute("addedItem", item);
+	            return "redirect:/devshop/product/" + productId;
+	        }
+	    }
+
+	   
 	    CartItem newItem = new CartItem(userId, productId, productName, nameColor, size, price, quantity, image);
 	    cart.add(newItem);
+
 
 	    redirectAttributes.addFlashAttribute("addedItem", newItem);
 	    return "redirect:/devshop/product/" + productId;
@@ -112,11 +129,12 @@ public class CartController {
 
    
     @PostMapping("/clear")
-    public String clearCart() {
-        sessionService.remove("cart");
-        return "Đã xóa toàn bộ giỏ hàng!";
+    public String clearCart(HttpSession session, RedirectAttributes redirectAttributes) {
+        session.removeAttribute("cart"); 
+        redirectAttributes.addFlashAttribute("message", "Giỏ hàng đã được xóa!");
+        return "redirect:/cart";
     }
-    
+
 
 
 }
