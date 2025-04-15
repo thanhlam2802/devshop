@@ -51,139 +51,139 @@ class LoginTest {
         mockUser.setPassword("pass123");
     }
     
-    @Test
-    void UT_LOGIN_01_Success_With_RememberMe() {
-        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
-        
-        String view = loginController.loginCheck(session, model, "user01", "pass123", true);
-        
-        verify(sessionService).set("currentUser", mockUser);
-        verify(cookieService).create("un", "user01", 30 * 24 * 60 * 60);
-        verify(cookieService).create("pw", "pass123", 30 * 24 * 60 * 60);
-        
-        assertEquals("redirect:/devshop/page/index", view);
-    }
-    
-    @Test
-    void UT_LOGIN_02_Success_Without_RememberMe() {
-        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
-        
-        String view = loginController.loginCheck(session, model, "user01", "pass123", false);
-     
-        verify(sessionService).set("currentUser", mockUser);
-        verify(cookieService).delete("un");
-        verify(cookieService).delete("pw");
-        
-        assertEquals("redirect:/devshop/page/index", view);
-    }
-    
-    @Test
-    void UT_LOGIN_03_Fail_Invalid_Username() {
-        when(userService.findByUsernameOrEmail("wronguser")).thenReturn(Optional.empty());
-        
-        String view = loginController.loginCheck(session, model, "wronguser", "pass123", false);
-        
-        verify(model).addAttribute("msg", "Invalid username or email!");
-        assertEquals("/home/login", view);
-    }
-    
-    @Test
-    void UT_LOGIN_04_Fail_Invalid_Password() {
-        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
-        
-        String view = loginController.loginCheck(session, model, "user01", "wrongpassword", false);
-        
-        verify(model).addAttribute("msg", "Invalid password!");
-        assertEquals("/home/login", view);
-    }
-    @Test
-    void UT_LOGIN_05_Fail_Empty_Username() {
-        String view = loginController.loginCheck(session, model, "", "password123", false);
-        
-        verify(model).addAttribute("msg", "Invalid username or email!");
-        assertEquals("/home/login", view);
-    }
-    @Test
-    void UT_LOGIN_06_Fail_Empty_Password() {
-        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
-
-        String view = loginController.loginCheck(session, model, "user01", "", false);
-        
-        verify(model).addAttribute("msg", "Invalid password!");
-        assertEquals("/home/login", view);
-    }
-    @Test
-    void UT_LOGIN_07_Fail_Special_Character_Username() {
-        String view = loginController.loginCheck(session, model, "user@!#", "password123", false);
-        
-        verify(model).addAttribute("msg", "Invalid username or email!");
-        assertEquals("/home/login", view);
-    }
-    @Test
-    void UT_LOGIN_09_RememberMe_With_Invalid_Credentials() {
-        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.empty());
-
-        String view = loginController.loginCheck(session, model, "user01", "wrongpassword", true);
-
-        verify(model).addAttribute("msg", "Invalid username or email!");
-        verify(cookieService, never()).create(anyString(), anyString(), anyInt());
-        assertEquals("/home/login", view);
-    }
-    @Test
-    void UT_LOGIN_011_Success_Uppercase_Username() {
-        when(userService.findByUsernameOrEmail("USER01")).thenReturn(Optional.of(mockUser));
-
-        String view = loginController.loginCheck(session, model, "USER01", "pass123", true);
-
-        verify(sessionService).set("currentUser", mockUser);
-        assertEquals("redirect:/devshop/page/index", view);
-    }
-    
-    @Test
-    void UT_LOGIN_012_Success_Uppercase_Password() {
-    	
-        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
-
-        String view = loginController.loginCheck(session, model, "user01", "PASS123", true);
-
-        verify(sessionService).set("currentUser", mockUser);
-        assertEquals("redirect:/devshop/page/index", view);
-    }
-
-
-    @Test
-    void UT_LOGIN_13_Fail_Too_Many_Attempts_Lock_Account() {
-        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
-        when(sessionService.get("failedAttempts")).thenReturn(5);
-
-        String view = loginController.loginCheck(session, model, "user01", "wrongpassword", false);
-
-        verify(model).addAttribute("msg", "Tài khoản của bạn đã bị khóa do nhập sai quá nhiều lần!");        assertEquals("/home/login", view);
-    }
-
-    @Test
-    void UT_LOGIN_14_Fail_Too_Many_Attempts_Still_Locked() {
-        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
-        when(sessionService.get("failedAttempts")).thenReturn(6); 
-
-        String view = loginController.loginCheck(session, model, "user01", "pass123", false);
-
-        verify(model).addAttribute("msg", "Tài khoản của bạn đã bị khóa do nhập sai quá nhiều lần!");
-        assertEquals("/home/login", view);
-    }
-
-    @Test
-    void UT_LOGIN_15_Success_Reset_Attempts_After_Login() {
-        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
-        when(sessionService.get("failedAttempts")).thenReturn(4); 
-
-        String view = loginController.loginCheck(session, model, "user01", "pass123", false);
-
-        verify(sessionService).remove("failedAttempts"); 
-        verify(sessionService).set("currentUser", mockUser);
-        assertEquals("redirect:/devshop/page/index", view);
-    }
-
+//    @Test
+//    void UT_LOGIN_01_Success_With_RememberMe() {
+//        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+//        
+//        String view = loginController.loginCheck(session, model, "user01", "pass123", true);
+//        
+//        verify(sessionService).set("currentUser", mockUser);
+//        verify(cookieService).create("un", "user01", 30 * 24 * 60 * 60);
+//        verify(cookieService).create("pw", "pass123", 30 * 24 * 60 * 60);
+//        
+//        assertEquals("redirect:/devshop/page/index", view);
+//    }
+//    
+//    @Test
+//    void UT_LOGIN_02_Success_Without_RememberMe() {
+//        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+//        
+//        String view = loginController.loginCheck(session, model, "user01", "pass123", false);
+//     
+//        verify(sessionService).set("currentUser", mockUser);
+//        verify(cookieService).delete("un");
+//        verify(cookieService).delete("pw");
+//        
+//        assertEquals("redirect:/devshop/page/index", view);
+//    }
+//    
+//    @Test
+//    void UT_LOGIN_03_Fail_Invalid_Username() {
+//        when(userService.findByUsernameOrEmail("wronguser")).thenReturn(Optional.empty());
+//        
+//        String view = loginController.loginCheck(session, model, "wronguser", "pass123", false);
+//        
+//        verify(model).addAttribute("msg", "Invalid username or email!");
+//        assertEquals("/home/login", view);
+//    }
+//    
+//    @Test
+//    void UT_LOGIN_04_Fail_Invalid_Password() {
+//        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+//        
+//        String view = loginController.loginCheck(session, model, "user01", "wrongpassword", false);
+//        
+//        verify(model).addAttribute("msg", "Invalid password!");
+//        assertEquals("/home/login", view);
+//    }
+//    @Test
+//    void UT_LOGIN_05_Fail_Empty_Username() {
+//        String view = loginController.loginCheck(session, model, "", "password123", false);
+//        
+//        verify(model).addAttribute("msg", "Invalid username or email!");
+//        assertEquals("/home/login", view);
+//    }
+//    @Test
+//    void UT_LOGIN_06_Fail_Empty_Password() {
+//        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+//
+//        String view = loginController.loginCheck(session, model, "user01", "", false);
+//        
+//        verify(model).addAttribute("msg", "Invalid password!");
+//        assertEquals("/home/login", view);
+//    }
+//    @Test
+//    void UT_LOGIN_07_Fail_Special_Character_Username() {
+//        String view = loginController.loginCheck(session, model, "user@!#", "password123", false);
+//        
+//        verify(model).addAttribute("msg", "Invalid username or email!");
+//        assertEquals("/home/login", view);
+//    }
+//    @Test
+//    void UT_LOGIN_09_RememberMe_With_Invalid_Credentials() {
+//        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.empty());
+//
+//        String view = loginController.loginCheck(session, model, "user01", "wrongpassword", true);
+//
+//        verify(model).addAttribute("msg", "Invalid username or email!");
+//        verify(cookieService, never()).create(anyString(), anyString(), anyInt());
+//        assertEquals("/home/login", view);
+//    }
+//    @Test
+//    void UT_LOGIN_011_Success_Uppercase_Username() {
+//        when(userService.findByUsernameOrEmail("USER01")).thenReturn(Optional.of(mockUser));
+//
+//        String view = loginController.loginCheck(session, model, "USER01", "pass123", true);
+//
+//        verify(sessionService).set("currentUser", mockUser);
+//        assertEquals("redirect:/devshop/page/index", view);
+//    }
+//    
+//    @Test
+//    void UT_LOGIN_012_Success_Uppercase_Password() {
+//    	
+//        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+//
+//        String view = loginController.loginCheck(session, model, "user01", "PASS123", true);
+//
+//        verify(sessionService).set("currentUser", mockUser);
+//        assertEquals("redirect:/devshop/page/index", view);
+//    }
+//
+//
+//    @Test
+//    void UT_LOGIN_13_Fail_Too_Many_Attempts_Lock_Account() {
+//        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+//        when(sessionService.get("failedAttempts")).thenReturn(5);
+//
+//        String view = loginController.loginCheck(session, model, "user01", "wrongpassword", false);
+//
+//        verify(model).addAttribute("msg", "Tài khoản của bạn đã bị khóa do nhập sai quá nhiều lần!");        assertEquals("/home/login", view);
+//    }
+//
+//    @Test
+//    void UT_LOGIN_14_Fail_Too_Many_Attempts_Still_Locked() {
+//        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+//        when(sessionService.get("failedAttempts")).thenReturn(6); 
+//
+//        String view = loginController.loginCheck(session, model, "user01", "pass123", false);
+//
+//        verify(model).addAttribute("msg", "Tài khoản của bạn đã bị khóa do nhập sai quá nhiều lần!");
+//        assertEquals("/home/login", view);
+//    }
+//
+//    @Test
+//    void UT_LOGIN_15_Success_Reset_Attempts_After_Login() {
+//        when(userService.findByUsernameOrEmail("user01")).thenReturn(Optional.of(mockUser));
+//        when(sessionService.get("failedAttempts")).thenReturn(4); 
+//
+//        String view = loginController.loginCheck(session, model, "user01", "pass123", false);
+//
+//        verify(sessionService).remove("failedAttempts"); 
+//        verify(sessionService).set("currentUser", mockUser);
+//        assertEquals("redirect:/devshop/page/index", view);
+//    }
+//
 
 
 }

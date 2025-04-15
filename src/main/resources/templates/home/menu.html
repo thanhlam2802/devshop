@@ -48,18 +48,15 @@
 			       <a href="/devshop/home/login" class="text-dark" title="Profile">
 			           <i class="bi bi-person"></i>
 			       </a>
-			   </th:block>
-
-			   <th:block th:if="${session.currentUser != null}">
-			       <div class="user-menu">
-			           <!-- Avatar: Chuyển đến trang cá nhân -->
-			           <a href="/devshop/home/profile" class="text-dark">
-			               <img th:src="@{|/photo/${session.currentUser.photo}|}" alt="User Avatar" class="rounded-circle avatar">
-			           </a>
-
-			           <a href="/devshop/home/logout" class="logout-text">Đăng xuất</a>
-			       </div>
-			   </th:block>
+			   </th:block>			   <th:block th:if="${session.currentUser != null}">
+			   			       <div class="user-menu">
+			   			           <!-- Avatar và thông tin người dùng -->
+			   			           <a href="/devshop/home/profile" class="text-dark">
+			   			               <img th:src="@{|/photo/${session.currentUser}/avatar|}" alt="User Avatar" class="rounded-circle avatar">
+			   			           </a>
+			   			           <a href="/devshop/home/logout" class="logout-text">Đăng xuất</a>
+			   			       </div>
+			     </th:block>
 		</div>
 	</div>
 

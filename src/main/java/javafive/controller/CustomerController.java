@@ -54,8 +54,8 @@ public class CustomerController {
             model.addAttribute("activeTab", "details");
             return "/home/confirmation";
         } else {
-            return "redirect:/devshop/order/confirmation?error=notfound"; // Xử lý khi không tìm thấy đơn hàng
-        }
+            return "redirect:/devshop/order/confirmation?error=notfound"; 
+            }
     }
 
 }
